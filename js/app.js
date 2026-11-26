@@ -11,7 +11,7 @@
   const JAHR = 2026;
   const params = new URLSearchParams(location.search);
   const VORSCHAU = params.has('vorschau');
-  const SPEICHER = VORSCHAU ? 'kai-advent-2026-vorschau' : 'kai-advent-2026';
+  const SPEICHER = VORSCHAU ? 'kai-advent-2026-vorschau-2' : 'kai-advent-2026';
 
   // Im Vorschau-Modus kann man mit ?vorschau&heute=5 so tun, als wäre der 5. Dezember
   function heute() {
@@ -236,7 +236,8 @@
       h('button', { class: 'close', type: 'button', 'aria-label': 'Schließen', onclick: schliessen }, '×'));
     sheet.append(kopf);
 
-    const geloest = !!stand.geloest[tag];
+    // In der Vorschau startet jedes Türchen immer mit dem Spiel
+    const geloest = !VORSCHAU && !!stand.geloest[tag];
     const inhalt = () => {
       sheet.append(brief(tag));
       const f = fotos(tag);
