@@ -648,3 +648,45 @@ main { position: relative; z-index: 4; padding: 6px 12px 0; overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* =========================================================
+   Geschicklichkeitsspiele
+   ========================================================= */
+.game-field > .ar-wrap, .ar-wrap { width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+.ar-hud { display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 1rem; color: var(--night-700); padding: 0 4px; min-height: 1.4em; }
+.ar-box { position: relative; width: 100%; border-radius: 18px; overflow: hidden; box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.06); }
+.ar-box::after { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: 18px; opacity: 0; }
+.ar-box.gut::after { animation: arGut 0.35s; }
+.ar-box.schlecht::after { animation: arSchlecht 0.45s; }
+@keyframes arGut { from { opacity: 1; box-shadow: inset 0 0 0 4px #7fd1a3; } to { opacity: 0; box-shadow: inset 0 0 0 4px #7fd1a3; } }
+@keyframes arSchlecht { from { opacity: 1; box-shadow: inset 0 0 0 6px #e2525f; } to { opacity: 0; box-shadow: inset 0 0 0 6px #e2525f; } }
+.ar-canvas { display: block; width: 100%; touch-action: none; user-select: none; -webkit-user-select: none; }
+.ar-feld {
+  position: relative; width: 100%; touch-action: manipulation; user-select: none; -webkit-user-select: none;
+  background: radial-gradient(circle at 50% 30%, #4a3478, #1b1336);
+}
+.ar-overlay {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 20px; z-index: 5;
+  background: rgba(22, 15, 48, 0.55); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none; transition: opacity 0.25s;
+}
+.ar-overlay.an { opacity: 1; pointer-events: auto; }
+.ar-karte { background: #fffaf3; color: var(--text); border-radius: 18px; padding: 18px 18px 16px; text-align: center; max-width: 300px; box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4); }
+.ar-karte b { display: block; font-family: var(--script); font-weight: 400; font-size: 2rem; line-height: 1.1; color: var(--plum); }
+.ar-karte p { margin: 6px 0 12px; line-height: 1.45; font-size: 0.98rem; }
+.ar-karte p:last-child { margin-bottom: 0; }
+.ar-ding {
+  position: absolute; transform: translate(-50%, -50%); border: 0; background: none; padding: 6px;
+  font-size: 2.4rem; line-height: 1; animation: arRein 0.25s cubic-bezier(0.3, 1.6, 0.5, 1); touch-action: manipulation;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+}
+.ar-ding.aus { transition: transform 0.2s, opacity 0.2s; transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+.ar-ding.treffer { transform: translate(-50%, -50%) scale(1.5) !important; }
+.ar-ding.falsch { filter: drop-shadow(0 0 10px #e2525f); }
+@keyframes arRein { from { transform: translate(-50%, -50%) scale(0.2); } to { transform: translate(-50%, -50%) scale(1); } }
+.ar-pads { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 18px; }
+.ar-pad {
+  border: 0; border-radius: 26px; font-size: 2.6rem; background: var(--farbe); opacity: 0.55;
+  box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.2); transition: opacity 0.12s, transform 0.12s, box-shadow 0.12s; touch-action: manipulation;
+}
+.ar-pad.an { opacity: 1; transform: scale(1.05); box-shadow: 0 0 30px var(--farbe), inset 0 -6px 0 rgba(0, 0, 0, 0.2); }

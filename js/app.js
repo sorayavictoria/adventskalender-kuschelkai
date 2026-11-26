@@ -173,6 +173,7 @@
     emoji: 'Emojirätsel', hangman: 'Galgenmännchen', scramble: 'Buchstabensalat', wordle: 'Wortraten',
     slide: 'Schiebepuzzle', quiz: 'Quiz', memory: 'Memory', lock: 'Herzschloss', wordsearch: 'Wörter suchen',
     crossword: 'Kreuzworträtsel', whoami: 'Wer bin ich?', order: 'Backstube', cipher: 'Geheimschrift', multi: 'Schatzsuche',
+    catch: 'Fangspiel', tap: 'Schnell tippen', stack: 'Stapelspiel', runner: 'Sprungspiel', simon: 'Glockenspiel',
   };
 
   const DATUM_LANG = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
