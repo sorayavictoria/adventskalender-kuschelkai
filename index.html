@@ -5,32 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Kais Adventskalender</title>
   <meta name="description" content="24 Türchen, 24 Briefe und 24 Rätsel für Kai.">
-  <meta name="theme-color" content="#0c241a">
+  <meta name="theme-color" content="#160f30">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='10' y='26' width='44' height='30' rx='3' fill='%23a3202f'/%3E%3Crect x='7' y='18' width='50' height='11' rx='2.5' fill='%23c22f40'/%3E%3Crect x='28.5' y='18' width='7' height='38' fill='%23e3c06e'/%3E%3Cpath d='M32 18c-5-9-14-9-13.3-3.5C19.2 18 32 18 32 18zm0 0c5-9 14-9 13.3-3.5C44.8 18 32 18 32 18z' fill='%23e3c06e'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=La+Belle+Aurore&family=Nunito:wght@400;600;700;800&family=Parisienne&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <canvas id="schnee" aria-hidden="true"></canvas>
 
-  <div id="lichter" class="lichter"></div>
+  <div id="himmel" class="himmel" aria-hidden="true"></div>
 
   <header class="kopf">
+    <div class="mond" aria-hidden="true"></div>
     <p class="kopf-klein">für meinen Kuschelkai</p>
     <h1>Adventskalender</h1>
-    <div class="kopf-zier" aria-hidden="true"><span></span>✦<span></span></div>
+    <p class="kopf-jahr">Dezember 2026</p>
     <p id="status" class="kopf-status"></p>
   </header>
 
   <main>
-    <div id="tuerchen" class="tuerchen"></div>
+    <div id="szene" class="szene"></div>
     <p id="fortschritt" class="fortschritt"></p>
   </main>
 
-  <footer class="fuss">Mit ganz viel Liebe gemacht · Dezember 2026</footer>
+  <footer class="fuss">mit ganz viel Liebe gemacht</footer>
 
   <div id="modal" class="modal" aria-modal="true" role="dialog">
     <div id="sheet" class="sheet"></div>

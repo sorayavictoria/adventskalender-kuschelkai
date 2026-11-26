@@ -1,119 +1,350 @@
 /* =====================================================================
    DIE LIEBESBRIEFE
    Hier kannst du jeden Brief ganz einfach selbst ändern.
-   Wichtig: Der Text steht zwischen den ` Zeichen (Backticks).
-   Eine leere Zeile macht einen neuen Absatz.
+   Der Text steht zwischen den ` Zeichen (Backticks).
+   Ein Zeilenumbruch bleibt ein Zeilenumbruch,
+   eine leere Zeile macht einen neuen Absatz.
    Die erste Zeile ist die Anrede.
    ===================================================================== */
 window.BRIEFE = {
-  1: `Guten Morgen, Kuschelkai!
+  1: `Kuschelkai,
 
-Heute geht es endlich los und ich freue mich schon seit Wochen darauf, dir jeden Tag eine kleine Freude zu machen. Das erste Türchen ist eins für uns beide. Zieh dir heute Abend was Warmes an, mehr verrate ich nicht.`,
+heute ist der erste Dezember
+und ab jetzt wartet jeden Morgen
+ein kleines Stück von mir auf dich.
 
-  2: `Hallo Zucker,
+Ein paar Zeilen. Ein Rätsel. Ein Päckchen.
+Vierundzwanzig Mal.
+Mal süß, mal albern
+und manchmal so ehrlich,
+dass ich beim Schreiben rot geworden bin.
 
-ich liebe diese Abende, an denen wir zusammen auf dem Sofa sitzen und jeder still sein Ding macht. Für genau solche Abende habe ich dir heute etwas eingepackt. Wer weiß, vielleicht fällt dabei ja irgendwann auch was für mich ab.`,
+Heute fangen wir klein an.
+Zieh dir heute Abend was Warmes an
+und bring deinen größten Hunger mit.`,
+
+  2: `Zucker,
+
+du hast diese Art,
+Dinge langsam entstehen zu lassen.
+Ohne Eile. Mit ganz viel Geduld.
+Eins nach dem anderen.
+
+Ich glaube, so ist das mit uns auch passiert.
+Nicht mit einem großen Knall,
+sondern Stück für Stück,
+bis es auf einmal warm war.`,
 
   3: `Guten Morgen, Herz,
 
-draußen wird es jeden Tag ein bisschen kälter und ich weiß genau, wie gern du dich dann in eine Decke einkuschelst. Heute bekommst du etwas, das dich von innen wärmt. Und wenn du magst, trinke ich eine Tasse mit.`,
+draußen hat der Winter
+seine kalten Finger ausgestreckt.
+Er klopft an die Fenster
+und will unbedingt rein.
+
+Lass ihn klopfen.
+Wir haben eine Decke,
+zwei Tassen
+und uns.
+
+Mehr braucht so ein Dezembertag nicht.`,
 
   4: `Kai,
 
-ich muss dir was gestehen. Ich küsse dich wirklich sehr gern und im Winter ist das manchmal eine etwas raue Angelegenheit. Das heutige Päckchen ist also ehrlich gesagt auch ein kleines bisschen ein Geschenk an mich.`,
+es gibt so viele Arten,
+wie du mich begrüßt.
+Verschlafen am Morgen.
+Müde nach einem langen Tag.
+Schnell an der Tür,
+weil wir mal wieder zu spät sind.
+
+Ich mag jede einzelne davon.
+Und heute geht es um meine liebste.`,
 
   5: `Hallo Kuschelkai,
 
-heute wird es klebrig, krümelig und am Ende wahrscheinlich ein bisschen schief. Ich finde, wir zwei sind ein richtig gutes Team, auch wenn ich die Hälfte der Deko vorher aufesse. Heute Abend krempeln wir die Ärmel hoch.`,
+wir zwei haben schon so einiges aufgebaut.
+Einen Alltag. Ein Zuhause.
+Unsere ganz eigenen kleinen Rituale.
+
+Heute bauen wir wieder etwas.
+Es wird wahrscheinlich schief.
+Und klebrig.
+Und ganz sicher wunderschön.`,
 
   6: `Psst, Zucker,
 
-heute Nacht war jemand hier und hat etwas für dich dagelassen. Ich sag nur so viel: Die Nikolausin war da! Und sie hat sich für deinen Sonntag etwas ganz Gemütliches überlegt.`,
+heute Nacht, als du tief geschlafen hast,
+ist jemand ganz leise durch die Wohnung geschlichen.
+Mit kalten Füßen
+und einem breiten Grinsen im Gesicht.
+
+Die Nikolausin war da!
+Und sie hat dir nicht nur etwas dagelassen.
+Sie hat gleich deinen ganzen Sonntag verplant.`,
 
   7: `Mein Herz,
 
-du hast diese Woche bestimmt wieder viel zu viel gemacht und zu wenig an dich gedacht. Heute Abend darfst du einfach mal gar nichts tun. Ich kümmere mich um den Rest.`,
+ich sehe, wie viel du trägst.
+Auch die Dinge, über die du nicht redest.
+Die Tage, an denen du einfach funktionierst,
+obwohl du eigentlich nur liegen willst.
+
+Heute Abend darfst du alles ablegen.
+Den Tag. Den Kopf. Die Schultern.
+Ich passe solange auf dich auf.`,
 
   8: `Mein Kai,
 
-heute vor fünf Jahren hatten wir unser erstes Date in Konstanz. Ich weiß noch, wie aufgeregt ich war und wie schnell diese Aufregung weg war, als wir angefangen haben zu reden. Ich hätte damals nie gedacht, wie viel aus diesem einen Abend werden würde.
+fünf Jahre.
+Ich habe es heute Morgen ein paar Mal leise vor mich hin gesagt,
+weil es sich so unwirklich anfühlt.
 
-Seitdem ist so viel passiert. Wir haben zusammen gelacht, uns gestritten und wieder vertragen, Pläne geschmiedet und manche davon wieder über den Haufen geworfen. Und jetzt wohnen wir wieder ganz in der Nähe von dem Ort, an dem alles angefangen hat. Das fühlt sich für mich ein bisschen an wie nach Hause kommen.
+Fünf Winter ist es her,
+dass wir uns in Konstanz zum ersten Mal gegenüberstanden.
+Mit kalten Händen und viel zu vielen Gedanken im Kopf.
+Ich wusste damals nicht, dass du bleiben würdest.
+Ich wusste nur, dass ich wollte,
+dass dieser Abend nicht aufhört.
 
-Danke, dass du so bist, wie du bist. Danke für deine Geduld, für deine Umarmungen und dafür, dass ich bei dir immer ich selbst sein darf.
+Und irgendwie hat er das auch nie.
+Er ist nur länger geworden.
+Er hat Kisten und Kilometer überstanden,
+müde Sonntage und laute Samstage
+und all die kleinen Momente,
+von denen niemand außer uns weiß.
 
-Heute Abend bist du mit Planen dran und ich bin schon ganz gespannt. Auf unsere ersten fünf Jahre und auf alle, die noch kommen.`,
+Jetzt sind wir wieder hier.
+Ganz nah an dem Ort, an dem alles angefangen hat.
+Als hätte das Leben einen großen Kreis gezogen,
+nur um uns zu zeigen,
+dass wir genau richtig sind.
+
+Danke, dass du mich so siehst, wie ich bin.
+Auch an den Tagen, an denen ich das selbst nicht kann.
+
+Heute Abend gehört dir.
+Du planst und ich folge dir.
+So wie vor fünf Jahren.`,
 
   9: `Guten Morgen, Zucker,
 
-im Dezember kann man meiner Meinung nach gar nicht genug naschen. Deshalb gibt es heute etwas Kleines für zwischendurch, mit ganz viel Weihnachtsgeschmack. Teilen ist erlaubt, aber keine Pflicht.`,
+der Dezember hat einen ganz eigenen Geruch.
+Nach Zimt und kalter Luft,
+nach Kerzenwachs und Orangenschale.
+
+Und irgendwo dazwischen
+riecht er nach dir.
+Nach deinem Pulli,
+in dem ich mich verstecke,
+wenn ich eigentlich nur nah bei dir sein will.`,
 
   10: `Hallo Kai,
 
-ich mag diese ruhigen Abende mit dir, an denen keiner was sagen muss. Du auf deiner Seite vom Sofa, ich auf meiner und irgendwann liegen wir doch wieder ineinander verknotet. Heute gibt es etwas Kleines für genau solche Abende.`,
+manchmal stelle ich mir vor,
+wir wären eine Geschichte.
+Keine perfekte.
+Eine mit Eselsohren und Kaffeeflecken
+und Seiten, die man immer wieder liest.
+
+Ich hoffe, sie hat noch ganz viele Kapitel.
+Ich will keins davon überspringen.`,
 
   11: `Hey Herz,
 
-ich glaube, ich hab dir das noch nie so richtig gesagt: Ich liebe es, wenn du einfach so nach meiner Hand greifst. Beim Spazierengehen, beim Einkaufen, einfach zwischendurch. Das heutige Päckchen ist klein, aber es meint es richtig gut mit dir.`,
+ich glaube, ich würde deine Hand
+unter hundert anderen erkennen.
+Mit geschlossenen Augen.
+
+Wie sie nach meiner greift,
+ganz nebenbei beim Spazieren.
+Wie sie mir über den Rücken streicht,
+wenn ich nicht schlafen kann.
+
+Heute ist sie mal dran.`,
 
   12: `Guten Morgen, Kuschelkai,
 
-heute wird unsere Küche ein bisschen eingesaut und alles wird nach Weihnachten duften. Ich bringe die gute Laune mit, du die starken Arme. Und das Naschen vom Teig zählt natürlich nicht.`,
+heute machen wir zusammen ein bisschen Chaos.
+Eins von der schönen Sorte,
+bei dem hinterher alles klebt
+und keiner aufräumen will.
+
+Ich weiß jetzt schon,
+dass ich dich mittendrin küssen werde.
+Einfach so.
+Weil du so süß aussiehst, wenn du dich konzentrierst.`,
 
   13: `Hallo Zucker,
 
-ich finde es so schön, dass du gern Dinge mit deinen eigenen Händen machst. Heute bekommst du ein kleines neues Projekt und wenn es fertig ist, kannst du es jeden Tag mit dir herumtragen.`,
+ein Zuhause ist für mich kein Ort.
+Es ist das Geräusch,
+wenn du abends die Tür aufmachst.
+Deine Schritte im Flur.
+Dein leises „Ich bin da“.
+
+Seit wir wieder hier wohnen,
+ist das mein liebstes Geräusch geworden.`,
 
   14: `Herz,
 
-für die Tage, an denen du viel unterwegs bist und zwischendurch einen kleinen Energieschub brauchst, gibt es heute etwas für die Jackentasche. Jedes Mal, wenn du reinbeißt, denkst du an mich. Das ist ab sofort die Regel.`,
+manchmal rennst du so schnell durch deine Tage,
+dass ich dir hinterherrufen möchte:
+Bleib kurz stehen.
+Atme.
+Schau mal nach oben.
+
+Die Welt hält das aus,
+wenn du fünf Minuten gar nichts tust.
+Und ich halte dich, wenn du müde bist.`,
 
   15: `Guten Morgen, Kai,
 
-heute habe ich dir eine Nachricht in Geheimschrift versteckt, weil ich finde, dass wir zwei sowieso unsere eigene Sprache haben. Viel Spaß beim Knacken, mein kleiner Detektiv. Ich glaube an dich.`,
+wir zwei haben unsere eigene Sprache.
+Ein Blick quer durch den Raum.
+Ein Wort, das nur wir verstehen.
+Ein Lachen an genau der falschen Stelle.
+
+Heute habe ich dir etwas in Geheimschrift geschrieben.
+Aber ich glaube, du knackst sie schneller,
+als du denkst.`,
 
   16: `Hey Zucker,
 
-heute gibt es wieder was zum Naschen und ich habe ganz genau darauf geachtet, dass es etwas ist, bei dem du schwach wirst. Teilen musst du nicht. Aber du darfst.`,
+ich habe eine Liste in meinem Kopf.
+Mit allem, was dich glücklich macht.
+Sie ist lang und sie wächst jeden Tag.
+
+Ganz oben steht Schlafen.
+Dann kommt Essen.
+Dann komme ich.
+Glaube ich zumindest.
+
+Heute kümmere ich mich um Platz zwei.`,
 
   17: `Mein Herz,
 
-heute Abend musst du nirgendwo hin und nichts machen außer hungrig sein. Zieh dir was Schönes an, zünde eine Kerze an und lass dich überraschen. Ich kümmere mich um alles andere.`,
+heute Abend musst du nirgendwo hin.
+Du musst nichts entscheiden,
+nichts planen und nichts mitbringen.
+
+Nur Hunger.
+Und vielleicht dein schönstes Lächeln.
+Den Rest überlässt du heute mir.`,
 
   18: `Hallo Kuschelkai,
 
-manche Dinge passen einfach perfekt zusammen, obwohl man es auf den ersten Blick gar nicht erwarten würde. Salzig und süß zum Beispiel. Oder du und ich.`,
+wir sind nicht gleich, du und ich.
+Ich rede, du hörst zu.
+Ich plane, du bleibst ruhig.
+Ich friere, du bist warm.
+
+Vielleicht passt es deshalb so gut.
+Wie zwei Dinge, die keiner zusammen erwartet
+und die man danach nie wieder trennen will.`,
 
   19: `Guten Morgen, Herz,
 
-du kümmerst dich so oft um alle anderen. Heute bist du mal dran und darfst dich ein bisschen verwöhnen lassen. Du hast es dir mehr als verdient.`,
+du schenkst so viel.
+Deine Zeit. Deine Geduld.
+Deine Hilfe. Deine Ruhe.
+
+Manchmal vergisst du dabei,
+dass du auch jemand bist,
+um den man sich kümmern darf.
+
+Heute erinnere ich dich daran.`,
 
   20: `Zucker,
 
-pack dir in Gedanken schon mal ein Handtuch ein. Heute wird es richtig schön warm und das, obwohl draußen vielleicht Schnee liegt. Ich freu mich auf ein paar Stunden nur mit dir.`,
+draußen ist die Welt grau und müde
+und der Wind vom See
+kriecht einem bis unter die Jacke.
+
+Ich habe einen Plan dagegen.
+Er ist warm.
+Er ist sehr warm.
+Und du brauchst dafür fast nichts anzuziehen.`,
 
   21: `Hey Kai,
 
-ich glaube, du hast keine Ahnung, wie oft du mich jeden Tag zum Lächeln bringst. Heute will ich dir mal eins zurückgeben. Ein kleines. Und weil Dezember ist, gibt es noch etwas für deinen Hals dazu.`,
+weißt du eigentlich,
+wie oft du mich zum Lächeln bringst?
+Mit einem albernen Witz.
+Mit einem einzigen Blick.
+Mit diesem Geräusch, das du machst,
+wenn du dich morgens streckst.
+
+Heute will ich dir eins zurückgeben.
+Ein kleines.
+Und noch etwas, das ein bisschen brennt.`,
 
   22: `Herz,
 
-heute Abend gehört das Sofa ganz uns. Ich habe die Decke schon bereitgelegt und die Kekse, die wir zusammen gebacken haben, warten auch schon. Den Rest darfst du heute erraten.`,
+es gibt Dinge, die jedes Jahr wiederkommen
+und trotzdem nie langweilig werden.
+Lieder, die man mitsingt, ohne den Text zu kennen.
+Geschichten, deren Ende man längst weiß
+und auf das man sich trotzdem freut.
+
+Und dann gibt es dich.
+Mein liebster Klassiker.`,
 
   23: `Guten Morgen, mein Kuschelkai,
 
-morgen ist Weihnachten. Bevor der ganze Trubel losgeht, sollst du heute noch einmal so richtig runterkommen. Ich habe da so eine Idee, wie das klappen könnte.`,
+morgen ist Heiligabend.
+Morgen wird es laut und voll und schön.
+
+Aber heute
+gehört der Abend noch uns.
+Leise. Warm.
+Ohne Termine und ohne Trubel.
+Nur du und ein bisschen Schweben.`,
 
   24: `Mein liebster Kai,
 
-jetzt ist es so weit, das letzte Türchen. Ich hoffe, du hattest in diesem Dezember jeden Morgen ein kleines Lächeln im Gesicht. Ich hatte es jedenfalls jedes Mal, wenn ich einen dieser Briefe für dich geschrieben habe.
+vierundzwanzig Türchen.
+Vierundzwanzig Briefe.
+Und trotzdem habe ich das Gefühl,
+ich hätte noch nicht einmal angefangen,
+dir alles zu sagen.
 
-Dieses Jahr war ganz schön voll. Wir sind wieder hierhergezogen, haben uns neu sortiert und uns dabei trotzdem nie aus den Augen verloren. Ich glaube, das mag ich an uns am meisten: Egal wie viel los ist, wir sind ein Team.
+Dieses Jahr war voll.
+Voll mit Kisten und Neuanfängen,
+mit kurzen Nächten
+und Morgen voller Lachen.
+Wir sind dorthin zurückgekommen, wo alles begann.
+Und wir haben uns dabei kein einziges Mal verloren.
 
-Mit dir fühlt sich alles ein bisschen wärmer an, sogar ein grauer Dezembertag am Bodensee. Ich bin so dankbar, dass ich Weihnachten mit dir feiern darf.
+Ich wünsche mir nicht viel für die nächsten Jahre.
+Nur dass wir neugierig aufeinander bleiben.
+Dass wir uns Fragen stellen,
+auch wenn wir glauben, die Antworten schon zu kennen.
+Dass wir zusammen Dinge erschaffen.
+Schiefe und schöne und ganz eigene.
 
-Frohe Weihnachten, mein Herz. Ich liebe dich.`,
+Du bist mein Zuhause, Kai.
+Nicht irgendein Ort.
+Du.
+
+Frohe Weihnachten.
+Ich liebe dich.`,
 };
 
 /* Unterschrift unter jedem Brief. Du kannst hier z. B. deinen Namen ergänzen. */
 window.UNTERSCHRIFT = 'In Liebe';
+
+/* =====================================================================
+   FOTOS
+   Welche Fotos bei welchem Brief erscheinen. Die Bilder liegen im Ordner "img".
+   ===================================================================== */
+window.FOTOS = {
+  1: [{ src: 'img/lichter.jpg', text: 'wir zwei im Lichterglanz' }],
+  8: [{ src: 'img/kuscheln.jpg', text: 'mein liebster Platz' }],
+  18: [{ src: 'img/kino.jpg', text: 'du und ich' }],
+  24: [
+    { src: 'img/kuscheln.jpg', text: 'unser Zuhause' },
+    { src: 'img/lichter.jpg', text: 'unsere Lichter' },
+    { src: 'img/kino.jpg', text: 'unsere Abende' },
+  ],
+};

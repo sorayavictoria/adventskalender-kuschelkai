@@ -38,13 +38,6 @@
     try { localStorage.setItem(SPEICHER, JSON.stringify(stand)); } catch (e) { /* privat-Modus */ }
   }
 
-  /* ---------- Türchen ---------- */
-  // gemischte Reihenfolge, feste Größen
-  const REIHENFOLGE = [17, 3, 24, 9, 1, 14, 6, 21, 11, 8, 2, 19, 13, 5, 22, 16, 10, 23, 4, 15, 7, 20, 12, 18];
-  const GROESSE = { 24: 'big', 8: 'big', 1: 'wide', 12: 'wide', 20: 'wide', 6: 'tall', 15: 'tall', 17: 'tall' };
-  const FARBEN = ['v-red', 'v-green', 'v-cream', 'v-pine', 'v-red', 'v-cream', 'v-green', 'v-pine'];
-  const MUSTER = ['p-dots', 'p-none', 'p-stripes', 'p-check', 'p-none', 'p-dots'];
-
   const NOCH_NICHT = [
     (n) => `Noch nicht, Zucker 🍬 Noch ${n} ${n === 1 ? 'Tag' : 'Tage'}.`,
     () => 'Na na na, nicht schummeln, Kuschelkai 😏',
@@ -55,34 +48,74 @@
     () => 'Ich seh genau, was du da machst 👀💕',
   ];
 
-  const grid = document.getElementById('tuerchen');
+  /* ---------- Der Baum mit 24 Türchen ---------- */
+  // Kugeln: [Tag, x, y] in Einheiten des Baumbilds (100 breit, 112 hoch)
+  const REIHEN = [
+    [31, [43.5, 56.5]],
+    [46, [36, 50, 64]],
+    [57.5, [30, 43.3, 56.7, 70]],
+    [70, [24, 37, 50, 63, 76]],
+    [81.5, [15, 29, 43, 57, 71, 85]],
+  ];
+  const KUGEL_TAGE = [3, 17, 11, 1, 21, 9, 14, 5, 19, 23, 2, 13, 7, 22, 10, 18, 4, 16, 12, 20];
+  const KUGEL_FARBEN = ['k-beere', 'k-gold', 'k-lila', 'k-schnee', 'k-eis', 'k-tanne'];
+  const KUGEL_MUSTER = ['', 'm-band', 'm-punkte', '', 'm-zickzack'];
+  const pos = (x, y) => `left:${x}%;top:${(y / 112) * 100}%;`;
+
+  const szene = document.getElementById('szene');
   const doors = {};
 
-  function baueTuerchen() {
-    grid.innerHTML = '';
-    REIHENFOLGE.forEach((tag, i) => {
-      const deko = Bilder.motive.filter((_, i) => i !== 5); // ohne Herz, das gibt es erst nach dem Lösen
-      const motiv = deko[(tag * 5) % deko.length];
-      const d = h('button', {
-        class: `door ${FARBEN[i % FARBEN.length]} ${MUSTER[(tag * 7) % MUSTER.length]} ${GROESSE[tag] || ''}`,
-        type: 'button',
-        'aria-label': `Türchen ${tag}`,
-        'data-tag': tag,
-        style: `--wobble:${((tag * 37) % 7) - 3}`,
+  function herz() { return h('span', { class: 'herz', 'aria-hidden': 'true', html: Bilder.motive[5] }); }
+  function schild() { return h('span', { class: 'heute-schild' }, 'heute ✨'); }
+
+  function baueBaum() {
+    szene.innerHTML = Bilder.baum_gross();
+    let i = 0;
+    REIHEN.forEach(([y, xs]) => xs.forEach((x) => {
+      const tag = KUGEL_TAGE[i];
+      const farbe = KUGEL_FARBEN[(i * 5 + 2) % KUGEL_FARBEN.length];
+      const muster = KUGEL_MUSTER[(tag * 3) % KUGEL_MUSTER.length];
+      const b = h('button', {
+        class: `platz kugel-btn ${farbe}-btn`, type: 'button', 'data-tag': tag,
+        style: pos(x, y) + `--sw:${3.4 + ((tag * 7) % 10) / 6}s;--sd:-${(tag * 0.37) % 3}s`,
         onclick: () => klick(tag),
       },
-        h('span', { class: 'door-inside' }, h('span', { class: 'inside-gift', html: Bilder.geschenk })),
-        h('span', { class: 'door-leaf' },
-          h('span', { class: 'leaf-front' },
-            h('span', { class: 'leaf-frame' }),
-            h('span', { class: 'motif', html: motiv }),
-            h('span', { class: 'num' }, tag),
-            h('span', { class: 'seal', 'aria-hidden': 'true', html: Bilder.motive[5] }),
-            h('span', { class: 'today-tag' }, 'heute')),
-          h('span', { class: 'leaf-back' })));
-      doors[tag] = d;
-      grid.append(d);
-    });
+        h('span', { class: 'kugel-schwung' },
+          h('span', { class: 'faden' }),
+          h('span', { class: 'kappe' }),
+          h('span', { class: `kugel ${farbe} ${muster}` }, h('span', { class: 'num' }, tag)),
+          herz()),
+        schild());
+      doors[tag] = b;
+      szene.append(b);
+      i++;
+    }));
+
+    // Stern = Türchen 24
+    const stern = h('button', { class: 'platz stern-btn', type: 'button', 'data-tag': 24, style: pos(50, 9), onclick: () => klick(24) },
+      h('span', {
+        html: '<svg class="stern-svg" viewBox="0 0 100 100"><defs><radialGradient id="sg" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#fff8d8"/><stop offset=".55" stop-color="#f6dc96"/><stop offset="1" stop-color="#c99a3b"/></radialGradient></defs><path d="M50 4 L62 36 L96 38 L69 59 L79 93 L50 73 L21 93 L31 59 L4 38 L38 36 Z" fill="url(#sg)" stroke="#fff3c4" stroke-width="2" stroke-linejoin="round"/></svg>',
+      }),
+      h('span', { class: 'num' }, '24'), herz(), schild());
+    doors[24] = stern;
+    szene.append(stern);
+
+    // Geschenke unter dem Baum
+    const paket = (tag, x, y, w, klasse, ar) => {
+      const b = h('button', { class: 'platz paket-btn', type: 'button', 'data-tag': tag, style: pos(x, y) + `--w:${w}%;--ar:${ar}`, onclick: () => klick(tag) },
+        h('span', { class: `paket ${klasse}` },
+          h('span', { class: 'paket-box' }),
+          h('span', { class: 'paket-deckel' }, h('span', { class: 'schleife', html: '<svg viewBox="0 0 40 20"><path d="M20 18 C12 2 0 2 3 12 C5 18 20 18 20 18Z M20 18 C28 2 40 2 37 12 C35 18 20 18 20 18Z" fill="#f6dc96" stroke="#c99a3b" stroke-width="1.2"/></svg>' }))),
+        h('span', { class: 'num' }, tag), herz(), schild());
+      doors[tag] = b;
+      szene.append(b);
+    };
+    paket(8, 73, 95.5, 21, 'p-lila', 1.1);
+    paket(15, 33, 98.5, 12.5, 'p-beere', 1);
+    const stiefel = h('button', { class: 'platz paket-btn stiefel-btn', type: 'button', 'data-tag': 6, style: pos(17, 96) + '--w:13%', onclick: () => klick(6) },
+      h('span', { class: 'stiefel', html: Bilder.stiefel }), h('span', { class: 'num' }, 6), herz(), schild());
+    doors[6] = stiefel;
+    szene.append(stiefel);
     aktualisiereTuerchen();
   }
 
@@ -95,19 +128,19 @@
       d.setAttribute('aria-label', `Türchen ${tag}` + (stand.geloest[tag] ? ', schon gelöst' : !istOffen(tag) ? ', noch zu' : ''));
     }
     const zahl = Object.keys(stand.geloest).length;
-    document.getElementById('fortschritt').textContent = zahl ? `${zahl} von 24 Türchen gelöst 💚` : '';
+    document.getElementById('fortschritt').textContent = zahl ? (zahl === 24 ? 'Alle 24 Türchen geschafft 💜' : `${zahl} von 24 Türchen geschafft 💜`) : '';
   }
 
   function klick(tag) {
     const d = doors[tag];
     if (!istOffen(tag)) {
       shake(d);
-      const n = tageBis(tag);
-      toast(pick(NOCH_NICHT)(n, tag));
+      toast(pick(NOCH_NICHT)(tageBis(tag), tag));
       return;
     }
     d.classList.add('is-open');
-    setTimeout(() => oeffneTag(tag), 650);
+    glitzer(d, 26);
+    setTimeout(() => oeffneTag(tag), 800);
   }
 
   /* ---------- Statuszeile oben ---------- */
@@ -142,14 +175,52 @@
     crossword: 'Kreuzworträtsel', whoami: 'Wer bin ich?', order: 'Backstube', cipher: 'Geheimschrift', multi: 'Schatzsuche',
   };
 
+  const DATUM_LANG = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+
   function brief(tag) {
     const text = (window.BRIEFE[tag] || '').trim();
     const teile = text.split(/\n\s*\n/);
     const lang = tag === 8 || tag === 24;
     return h('article', { class: 'letter' + (lang ? ' long' : '') },
-      h('span', { class: 'wax', 'aria-hidden': 'true' }, 'K'),
+      h('p', { class: 'datum' }, DATUM_LANG.format(tagDatum(tag))),
       ...teile.map((p, i) => h('p', { class: i === 0 ? 'greet' : '' }, p)),
-      h('p', { class: 'sign' }, window.UNTERSCHRIFT || 'In Liebe', h('span', { class: 'sign-heart', html: Bilder.motive[5] })));
+      h('p', { class: 'sign' }, window.UNTERSCHRIFT || 'In Liebe', h('span', { class: 'sign-heart', html: Bilder.motive[5] })),
+      h('span', { class: 'zweig', html: Bilder.zweig }));
+  }
+
+  function fotos(tag) {
+    const liste = (window.FOTOS || {})[tag];
+    if (!liste || !liste.length) return null;
+    const winkel = [-3, 2.5, -1.5, 3];
+    return h('div', { class: 'fotos' + (liste.length > 1 ? ' viele' : '') },
+      ...liste.map((f, i) => {
+        const img = h('img', { src: f.src, alt: f.text || 'Foto von uns', loading: 'lazy' });
+        const fig = h('figure', { class: 'polaroid', style: `--r:${winkel[i % winkel.length]}deg` }, img, f.text ? h('figcaption', {}, f.text) : null);
+        img.onerror = () => fig.remove();
+        return fig;
+      }));
+  }
+
+  function umschlag(tag, weiter) {
+    const wrap = h('div', { class: 'umschlag-wrap' });
+    const u = h('button', { class: 'umschlag', type: 'button', 'aria-label': 'Brief öffnen' },
+      h('span', { class: 'u-hinten' }),
+      h('span', { class: 'u-brief' }),
+      h('span', { class: 'u-vorne' }),
+      h('span', { class: 'u-adresse' }, 'für Kai'),
+      h('span', { class: 'u-klappe' }),
+      h('span', { class: 'u-siegel' }, 'K'));
+    const hinweis = h('p', { class: 'umschlag-hinweis' }, 'Tippe auf das Siegel 💌');
+    let auf = false;
+    u.onclick = () => {
+      if (auf) return;
+      auf = true;
+      u.classList.add('offen');
+      hinweis.remove();
+      setTimeout(() => { wrap.remove(); weiter(); }, 1500);
+    };
+    wrap.append(u, hinweis);
+    return wrap;
   }
 
   function oeffneTag(tag, nochmal) {
@@ -163,15 +234,23 @@
         h('small', {}, WOCHENTAG.format(tagDatum(tag))),
         h('h2', {}, `Türchen ${tag}`)),
       h('button', { class: 'close', type: 'button', 'aria-label': 'Schließen', onclick: schliessen }, '×'));
-    sheet.append(kopf, brief(tag));
+    sheet.append(kopf);
 
     const geloest = !!stand.geloest[tag];
-    if (geloest && !nochmal) {
-      sheet.append(aufloesungKarte(tag, stand.geloest[tag] === 'aufgeloest'));
-      sheet.append(h('button', { class: 'btn btn-ghost again', type: 'button', onclick: () => oeffneTag(tag, true) }, 'Rätsel nochmal spielen'));
-    } else {
-      sheet.append(spielKarte(tag, r));
-    }
+    const inhalt = () => {
+      sheet.append(brief(tag));
+      const f = fotos(tag);
+      if (f) sheet.append(f);
+      if (geloest && !nochmal) {
+        sheet.append(aufloesungKarte(tag, stand.geloest[tag] === 'aufgeloest'));
+        sheet.append(h('button', { class: 'btn btn-ghost light again', type: 'button', onclick: () => oeffneTag(tag, true) }, 'Rätsel nochmal spielen'));
+      } else {
+        sheet.append(spielKarte(tag, r));
+      }
+    };
+    // Beim ersten Öffnen kommt der Brief im Umschlag
+    if (!geloest && !nochmal) sheet.append(umschlag(tag, inhalt));
+    else inhalt();
 
     if (!modal.classList.contains('show')) {
       modal.classList.add('show');
@@ -291,14 +370,42 @@
 
   function aufloesungKarte(tag, aufgeloest) {
     const r = RAETSEL[tag];
-    return h('section', { class: 'reveal pop-in' + (tag === 24 ? ' finale' : '') },
+    const karte = h('section', { class: 'reveal pop-in' + (tag === 24 ? ' finale' : '') },
       h('span', { class: 'reveal-label' }, aufgeloest ? 'Die Lösung' : 'Gelöst ✨'),
       h('h3', {}, r.solution),
-      h('p', {}, r.reveal),
-      h('div', { class: 'tag-card' },
-        h('span', { class: 'tag-hole' }),
-        h('span', { class: 'tag-gift', html: Bilder.geschenk }),
-        h('span', {}, 'Jetzt darfst du ', h('b', {}, `Päckchen Nr. ${tag}`), ' auspacken!')));
+      h('p', {}, r.reveal));
+
+    const anhaenger = h('div', { class: 'tag-card' },
+      h('span', { class: 'tag-hole' }),
+      h('span', { class: 'tag-gift', html: Bilder.geschenk }),
+      h('span', {}, 'Jetzt darfst du ', h('b', {}, `Päckchen Nr. ${tag}`), ' auspacken!'));
+
+    // Kai darf vorher raten, was drin ist
+    const tipps = stand.tipps || (stand.tipps = {});
+    if (r.keinTipp) {
+      karte.append(anhaenger);
+    } else if (tipps[tag]) {
+      karte.append(h('p', { class: 'mein-tipp' }, `Dein Tipp: „${tipps[tag]}“`), anhaenger);
+    } else {
+      const box = answerBox({
+        placeholder: 'Mein Tipp …',
+        button: 'Merken',
+        onSubmit: (v) => {
+          tipps[tag] = v.trim().slice(0, 80);
+          speichern();
+          raten.replaceWith(h('p', { class: 'mein-tipp pop-in' }, `Dein Tipp: „${tipps[tag]}“`));
+          karte.append(anhaenger);
+          glitzer(anhaenger, 24);
+          return true;
+        },
+      });
+      const ueberspringen = h('button', { class: 'btn btn-ghost light btn-small', type: 'button', style: 'margin-top:10px', onclick: () => { raten.remove(); karte.append(anhaenger); } }, 'Ohne Tipp auspacken');
+      const raten = h('div', { class: 'raten' },
+        h('label', {}, 'Was glaubst du, steckt in deinem Päckchen? Schreib deinen Tipp auf, bevor du auspackst.'),
+        box.el, ueberspringen);
+      karte.append(raten);
+    }
+    return karte;
   }
 
   function schliessen(vonHistory) {
@@ -366,22 +473,15 @@
     bild();
   }
 
-  /* ---------- Lichterkette ---------- */
-  function lichter() {
-    const el = document.getElementById('lichter');
-    const w = el.clientWidth || innerWidth;
-    const n = Math.max(7, Math.round(w / 44));
-    const step = w / n;
-    let d = 'M0 4';
-    const birnen = [];
-    const farben = ['#f1d58f', '#e0473f', '#fbf4e6', '#7fc59a', '#f1d58f', '#e0473f'];
-    for (let i = 0; i < n; i++) {
-      const x = i * step + step / 2;
-      d += ` Q${x} 26 ${(i + 1) * step} 4`;
-      birnen.push(`<g class="bulb" style="--i:${i};--c:${farben[i % farben.length]}"><rect x="${x - 2.6}" y="13" width="5.2" height="5" rx="1" fill="#2a3b30"/><ellipse cx="${x}" cy="23.5" rx="4.6" ry="6.5" fill="var(--c)"/></g>`);
+  /* ---------- Sterne am Himmel ---------- */
+  function sterne() {
+    const el = document.getElementById('himmel');
+    const r = seeded(7);
+    for (let i = 0; i < 70; i++) {
+      el.append(h('i', { style: `left:${(r() * 100).toFixed(1)}%;top:${(r() * 100).toFixed(1)}%;--s:${(1 + r() * 2.2).toFixed(1)}px;--t:${(2 + r() * 4).toFixed(1)}s;--d:-${(r() * 5).toFixed(1)}s` }));
     }
-    el.innerHTML = `<svg viewBox="0 0 ${w} 34" width="100%" height="34" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" fill="none" stroke="#2a3b30" stroke-width="1.6"/>${birnen.join('')}</svg>`;
   }
+  function seeded(seed) { let x = seed; return () => ((x = (x * 16807) % 2147483647) / 2147483647); }
 
   /* ---------- Glitzer & Konfetti ---------- */
   const fx = document.getElementById('fx');
@@ -480,10 +580,9 @@
 
   /* ---------- Start ---------- */
   vorschauLeiste();
-  baueTuerchen();
+  baueBaum();
   status();
-  lichter();
-  addEventListener('resize', lichter);
+  sterne();
   schnee();
 
   // Falls die Seite über Nacht offen bleibt: um Mitternacht neu laden

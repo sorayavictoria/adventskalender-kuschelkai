@@ -14,7 +14,8 @@ Ein digitaler Adventskalender mit 24 Türchen, Liebesbriefen und Rätseln.
 |---|---|
 | `index.html` | Die Seite selbst |
 | `css/style.css` | Farben, Schriften, Aussehen |
-| `js/briefe.js` | **Die 24 Liebesbriefe** (hier kannst du Texte selbst ändern) |
+| `js/briefe.js` | **Die 24 Liebesbriefe** und welche Fotos bei welchem Brief erscheinen |
+| `img/` | Eure Fotos |
 | `js/raetsel.js` | Die Rätsel und Lösungen (verschlüsselt, damit Kai nicht schummeln kann) |
 | `js/spiele.js` | Die Spiele |
 | `js/app.js` | Kalender, Datum, Speichern, Effekte |
