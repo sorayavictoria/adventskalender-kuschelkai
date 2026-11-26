@@ -48,9 +48,8 @@ Ich glaube, sie hat dich ziemlich lieb.`,
 
   7: `Mein Herz,
 
-ich liebe dein Lachen.
-Dieses ganz ehrliche, das sofort ansteckt.
-Davon kann ich nie genug bekommen.`,
+kleiner Reminder: Du bist genau richtig, so wie du bist.
+Ich liebe dich mit allem, was dazugehört.`,
 
   8: `Mein Kai,
 
@@ -73,9 +72,8 @@ Heute Abend gehört dir. Ich freu mich auf dich.`,
 
   9: `Guten Morgen, Zucker,
 
-ich liebe es, wie du mich anschaust,
-wenn du denkst, ich merke es nicht.
-Ich merke es. Und ich liebe es.`,
+mit dir fühlt sich alles ein bisschen leichter an.
+Danke, dass du an meiner Seite bist.`,
 
   10: `Hallo Kai,
 
@@ -155,9 +153,9 @@ vierundzwanzig Türchen später bleibt eigentlich nur eins zu sagen:
 Ich liebe dich so sehr.
 
 Wir hatten nicht immer nur leichte Zeiten.
-Zwischendurch haben wir uns ein bisschen verloren.
-Und ich bin so unendlich froh, dass wir es zusammen geschafft haben.
-Dass wir uns wiedergefunden haben.
+In den letzten Wochen haben wir uns ein bisschen verloren.
+Und zum Glück haben wir uns wiedergefunden.
+Ich bin so unendlich froh, dass wir es zusammen geschafft haben.
 Ich bin so stolz auf uns.
 
 Du bist mein Lieblingsmensch.

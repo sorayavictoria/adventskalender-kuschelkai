@@ -230,4 +230,67 @@
     anzeigen();
     return { solveNow() { fertig = true; F.forEach((_, i) => { if (!gefunden.has(i)) { gefunden.add(i); markiere(i); } }); anzeigen(); } };
   };
+
+  /* ---------- Lichterzauber: alle Kerzen zum Brennen bringen ---------- */
+  S.lichter = function (root, cfg, api) {
+    const N = 3;
+    let an = Array(N * N).fill(true);
+    let fertig = false, zuege = 0;
+    const nachbarn = (i) => {
+      const r = Math.floor(i / N), c = i % N, out = [i];
+      if (r > 0) out.push(i - N);
+      if (r < N - 1) out.push(i + N);
+      if (c > 0) out.push(i - 1);
+      if (c < N - 1) out.push(i + 1);
+      return out;
+    };
+    const schalte = (i) => nachbarn(i).forEach((k) => (an[k] = !an[k]));
+    // vom fertigen Zustand aus mischen, damit es sicher lösbar ist
+    const druecke = [...Array(N * N).keys()].sort(() => Math.random() - 0.5).slice(0, cfg.schwer || 4);
+    druecke.forEach(schalte);
+    if (an.every(Boolean)) schalte(4);
+
+    const wrap = h('div', { class: 'li-wrap' });
+    root.append(wrap);
+    wrap.append(h('p', { class: 'g-prompt' }, 'Tippst du eine Kerze an, wechseln sie und ihre direkten Nachbarn (oben, unten, links, rechts). Bring alle neun zum Leuchten!'));
+    const stand = h('div', { class: 'li-stand' });
+    const feld = h('div', { class: 'li-feld' });
+    const kerzen = an.map((_, i) => {
+      const b = h('button', { class: 'li-kerze', type: 'button', 'aria-label': `Kerze ${i + 1}` },
+        h('span', { class: 'li-schein' }),
+        h('span', { class: 'li-flamme' }),
+        h('span', { class: 'li-docht' }),
+        h('span', { class: 'li-wachs' }));
+      b.addEventListener('pointerdown', (e) => { e.preventDefault(); tippe(i); });
+      feld.append(b);
+      return b;
+    });
+    const neu = h('button', { class: 'btn btn-ghost btn-small', type: 'button', onclick: () => { an = start.slice(); zuege = 0; malen(); api.say('', ''); } }, 'Nochmal von vorn');
+    const start = an.slice();
+    wrap.append(stand, feld, neu);
+    function malen() {
+      kerzen.forEach((k, i) => k.classList.toggle('an', an[i]));
+      const z = an.filter(Boolean).length;
+      stand.textContent = `${z} von 9 Kerzen brennen`;
+    }
+    function tippe(i) {
+      if (fertig) return;
+      schalte(i);
+      zuege++;
+      nachbarn(i).forEach((k) => { kerzen[k].classList.remove('wackeln'); void kerzen[k].offsetWidth; kerzen[k].classList.add('wackeln'); });
+      malen();
+      if (an.every(Boolean)) {
+        fertig = true;
+        feld.classList.add('fertig');
+        neu.remove();
+        api.say('Alle Lichter brennen ✨', 'good');
+        setTimeout(() => api.solved(), 1300);
+      } else if (zuege > 0 && zuege % 12 === 0) {
+        api.fail();
+      }
+    }
+    malen();
+    window.__lichter = () => an.slice(); // nur für Tests
+    return { solveNow() { fertig = true; an.fill(true); malen(); feld.classList.add('fertig'); neu.remove(); } };
+  };
 })();

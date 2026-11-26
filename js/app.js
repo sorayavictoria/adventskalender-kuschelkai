@@ -173,7 +173,7 @@
     emoji: 'Emojirätsel', hangman: 'Galgenmännchen', scramble: 'Buchstabensalat', wordle: 'Wortraten',
     slide: 'Schiebepuzzle', quiz: 'Quiz', memory: 'Memory', lock: 'Herzschloss', wordsearch: 'Wörter suchen',
     crossword: 'Kreuzworträtsel', whoami: 'Wer bin ich?', order: 'Backstube', cipher: 'Geheimschrift', multi: 'Schatzsuche',
-    catch: 'Fangspiel', tap: 'Schnell tippen', stack: 'Stapelspiel', runner: 'Sprungspiel', simon: 'Glockenspiel', timing: 'Heiz ein', sortieren: 'Salzig oder süß', rubbeln: 'Freirubbeln', sternbild: 'Sternbild', fehler: 'Fehlersuche',
+    catch: 'Fangspiel', tap: 'Schnell tippen', stack: 'Stapelspiel', runner: 'Sprungspiel', simon: 'Glockenspiel', timing: 'Heiz ein', sortieren: 'Salzig oder süß', rubbeln: 'Freirubbeln', sternbild: 'Sternbild', fehler: 'Fehlersuche', lichter: 'Lichterzauber',
   };
 
   const DATUM_LANG = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });

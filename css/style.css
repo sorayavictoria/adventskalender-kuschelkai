@@ -867,3 +867,28 @@ main { position: relative; z-index: 4; padding: 0; overflow-x: clip; margin-top:
 .fe-kreis { fill: none; stroke: #7fd1a3; stroke-width: 3; filter: drop-shadow(0 0 3px #7fd1a3); animation: popin 0.4s; transform-box: fill-box; transform-origin: center; }
 .game-field > .ru-wrap, .game-field > .so-wrap, .game-field > .sb-wrap, .game-field > .fe-wrap { align-items: stretch; }
 .ru-karte { width: calc(100% - 18px); }
+
+/* Lichterzauber */
+.game-field > .li-wrap { align-items: center; }
+.li-wrap { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.li-stand { font-weight: 800; color: var(--night-700); }
+.li-feld {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: min(100%, 320px); padding: 18px; border-radius: 22px;
+  background: radial-gradient(circle at 50% 30%, #3b3270, #161a3a); box-shadow: inset 0 0 0 2px rgba(224, 184, 92, 0.35), 0 14px 28px -14px rgba(0, 0, 0, 0.7);
+  transition: box-shadow 0.8s;
+}
+.li-feld.fertig { box-shadow: inset 0 0 0 2px rgba(246, 220, 150, 0.9), 0 0 50px 10px rgba(255, 200, 110, 0.45); }
+.li-kerze { position: relative; aspect-ratio: 0.8; border: 0; background: none; padding: 0; touch-action: manipulation; }
+.li-wachs { position: absolute; left: 32%; right: 32%; bottom: 6%; height: 52%; border-radius: 6px 6px 4px 4px; background: linear-gradient(90deg, #e8dcc6, #fbf4e6 45%, #d9ccb2); box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.5); }
+.li-wachs::before { content: ''; position: absolute; left: -4%; right: -4%; top: -3px; height: 9px; border-radius: 50%; background: #fbf4e6; }
+.li-docht { position: absolute; left: calc(50% - 1px); bottom: 57%; width: 2px; height: 7%; background: #3a2a20; }
+.li-flamme {
+  position: absolute; left: 50%; bottom: 62%; width: 22%; height: 26%; transform: translateX(-50%) scale(0); transform-origin: 50% 100%;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: radial-gradient(circle at 50% 70%, #fff8dc 0, #ffd36b 40%, #ff8a3c 80%);
+  transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1); filter: drop-shadow(0 0 6px #ffb347);
+}
+.li-schein { position: absolute; left: 50%; top: 40%; width: 160%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(255, 200, 110, 0.5), rgba(255, 200, 110, 0) 60%); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+.li-kerze.an .li-flamme { transform: translateX(-50%) scale(1); animation: flackern 1.6s ease-in-out infinite; }
+.li-kerze.an .li-schein { opacity: 1; }
+.li-kerze.wackeln { animation: popin 0.3s; }
+@keyframes flackern { 0%, 100% { transform: translateX(-50%) scale(1) rotate(-2deg); } 50% { transform: translateX(-50%) scale(1.08, 0.95) rotate(2deg); } }
