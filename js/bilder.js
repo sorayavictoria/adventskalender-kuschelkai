@@ -331,3 +331,55 @@ ${gd}${lichter.join('')}
     return s;
   };
 })();
+
+/* =====================================================================
+   FEHLERSUCHE: Weihnachtsabend (viewBox 300 x 220)
+   ===================================================================== */
+(function () {
+  const B = window.Bilder;
+  // Unterschiede: [x, y, Radius]
+  B.FEHLER = [
+    [84, 44, 14],   // Mond
+    [200, 30, 14],  // Stern auf dem Baum
+    [222, 118, 10], // zusätzliche Kugel
+    [166, 152, 12], // Schleife am Geschenk
+    [58, 118, 10],  // Kerzenflamme
+    [98, 140, 11],  // Herz auf der Tasse
+  ];
+  B.weihnachtsabend = function (anders) {
+    const sterne = [[34, 34], [52, 58], [100, 30], [64, 28], [40, 80], [96, 76]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.2" fill="#fff"/>`).join('');
+    const kugeln = [[188, 82, '#c22f40'], [212, 96, '#e0b85c'], [182, 128, '#b9a6e0'], [214, 146, '#c22f40'], [196, 112, '#f5f2fb']]
+      .map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="5" fill="${c}"/>`).join('');
+    return `<svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+<rect width="300" height="220" fill="#3b2a5a"/>
+<path d="M0 0h300v6H0z" fill="#2e2148"/>
+${[20, 60, 100, 140, 180, 220, 260].map((x) => `<path d="M${x} 6 v170" stroke="#36274f" stroke-width="10"/>`).join('')}
+<rect x="18" y="18" width="94" height="84" rx="4" fill="#6b4a32"/>
+<rect x="24" y="24" width="82" height="72" fill="#1d2350"/>
+${sterne}
+${anders ? '' : '<circle cx="84" cy="44" r="10" fill="#fff3d0"/><circle cx="88" cy="41" r="9" fill="#1d2350"/>'}
+<path d="M65 24 v72 M24 60 h82" stroke="#6b4a32" stroke-width="4"/>
+<path d="M24 96 q20 -8 41 0 q20 -8 41 0 v4 h-82z" fill="#f5f2fb"/>
+<rect x="0" y="176" width="300" height="44" fill="#6b4a3a"/>
+<path d="M0 176 h300" stroke="#4e3428" stroke-width="3"/>
+<ellipse cx="190" cy="194" rx="96" ry="14" fill="#a3202f" opacity=".55"/>
+<rect x="26" y="150" width="86" height="7" rx="2" fill="#8a5a3a"/><rect x="34" y="157" width="5" height="22" fill="#6b4a32"/><rect x="100" y="157" width="5" height="22" fill="#6b4a32"/>
+<rect x="53" y="128" width="10" height="22" rx="2" fill="#fbf4e6"/>
+${anders ? '' : '<path d="M58 113 c5 6 5 10 0 14 c-5 -4 -5 -8 0 -14z" fill="#ffcf6b"/><circle cx="58" cy="122" r="9" fill="#ffcf6b" opacity=".25"/>'}
+<path d="M86 132 h22 v15 a6 6 0 0 1 -6 6 h-10 a6 6 0 0 1 -6 -6z" fill="${'#e2525f'}"/><path d="M108 136 a5 5 0 0 1 0 10" stroke="#e2525f" stroke-width="3" fill="none"/>
+${anders ? '' : '<path d="M97 146 c-5 -3 -6 -7 -3 -8 c1.5 -.5 3 .5 3 2 c0 -1.5 1.5 -2.5 3 -2 c3 1 2 5 -3 8z" fill="#fff"/>'}
+<path d="M90 128 c-3 -4 3 -6 0 -10 M100 128 c-3 -4 3 -6 0 -10" stroke="#fff" stroke-width="1.6" fill="none" opacity=".5"/>
+<rect x="194" y="160" width="12" height="18" fill="#5b3a26"/>
+<path d="M200 40 L232 92 H218 L244 136 H226 L254 168 H146 L174 136 H156 L182 92 H168 Z" fill="#2f7a58"/>
+<path d="M200 40 L232 92 H218 L244 136 H226 L254 168 H200 Z" fill="#245a3e"/>
+<path d="M172 100 q28 14 56 -2 M160 142 q40 18 84 -2" stroke="#f6dc96" stroke-width="1.5" fill="none" stroke-dasharray="1 4" stroke-linecap="round"/>
+${kugeln}
+${anders ? '<circle cx="222" cy="118" r="5" fill="#e0b85c"/>' : ''}
+<path d="M200 18 l4 9 10 1 -8 6 3 10 -9 -6 -9 6 3 -10 -8 -6 10 -1z" fill="${anders ? '#e2525f' : '#f6dc96'}"/>
+<rect x="150" y="160" width="32" height="24" rx="2" fill="#c22f40"/><path d="M166 160 v24 M150 171 h32" stroke="#f6dc96" stroke-width="4"/>
+${anders ? '' : '<path d="M166 160 c-6 -10 -14 -6 -9 -1 z M166 160 c6 -10 14 -6 9 -1 z" fill="#f6dc96"/>'}
+<rect x="232" y="164" width="30" height="20" rx="2" fill="#9b82d6"/><path d="M247 164 v20" stroke="#fff" stroke-width="3"/>
+<rect x="204" y="170" width="20" height="14" rx="2" fill="#2f7a58"/><path d="M214 170 v14" stroke="#c22f40" stroke-width="3"/>
+</svg>`;
+  };
+})();

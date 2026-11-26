@@ -154,9 +154,10 @@ Ich liebe dich so sehr.`,
 vierundzwanzig Türchen später bleibt eigentlich nur eins zu sagen:
 Ich liebe dich so sehr.
 
-Dieses Jahr war voll.
-Wir sind zurück in die Gegend gezogen, haben neu angefangen
-und haben uns dabei nie verloren.
+Wir hatten nicht immer nur leichte Zeiten.
+Zwischendurch haben wir uns ein bisschen verloren.
+Und ich bin so unendlich froh, dass wir es zusammen geschafft haben.
+Dass wir uns wiedergefunden haben.
 Ich bin so stolz auf uns.
 
 Du bist mein Lieblingsmensch.
