@@ -190,7 +190,8 @@
     function naechster() {
       const oben = stapel[stapel.length - 1];
       const vonLinks = stapel.length % 2 === 0;
-      akt = { x: vonLinks ? -oben.w : st.w, w: oben.w, v: (vonLinks ? 1 : -1) * (2.6 + punkte * 0.28), f: stapel.length };
+      // Start knapp im Bild, damit der Keks sofort sichtbar hin und her fährt
+      akt = { x: vonLinks ? 0 : st.w - oben.w, w: oben.w, v: (vonLinks ? 1 : -1) * (2.1 + punkte * 0.18), f: stapel.length };
     }
     function keks(c, x, y, w, f) {
       const g = c.createLinearGradient(0, y, 0, y + H);
@@ -223,7 +224,8 @@
       const dt = Math.min(48, t - zuletzt) / 16.67;
       zuletzt = t;
       akt.x += akt.v * dt;
-      if (akt.x < -akt.w * 0.6 || akt.x > st.w - akt.w * 0.4) akt.v *= -1;
+      if (akt.x <= 0 && akt.v < 0) { akt.x = 0; akt.v *= -1; }
+      if (akt.x + akt.w >= st.w && akt.v > 0) { akt.x = st.w - akt.w; akt.v *= -1; }
       const zielKamera = Math.max(0, (stapel.length + 3) * H - (st.h - 110));
       kamera += (zielKamera - kamera) * 0.12;
       zeichne();
@@ -234,9 +236,9 @@
       const oben = stapel[stapel.length - 1];
       let links = Math.max(akt.x, oben.x);
       let rechts = Math.min(akt.x + akt.w, oben.x + oben.w);
-      if (Math.abs(akt.x - oben.x) < 6) { links = oben.x; rechts = oben.x + oben.w; } // fast perfekt zählt als perfekt
+      if (Math.abs(akt.x - oben.x) < 10) { links = oben.x; rechts = oben.x + oben.w; } // fast perfekt zählt als perfekt
       const breite = rechts - links;
-      if (breite <= 4) return ende(false);
+      if (breite <= 8) return ende(false);
       stapel.push({ x: links, w: breite, f: akt.f });
       punkte++;
       st.blitz(true);
@@ -258,6 +260,7 @@
     };
     document.addEventListener('keydown', taste);
     st.messen(); neu(); zeichne(); st.hud(`0 / ${ziel}`, '🍪');
+    st.wrap.__zustand = () => ({ akt, oben: stapel[stapel.length - 1], laeuft, punkte }); // nur für Tests
     st.zeige(cfg.titel || 'Bereit?', cfg.anleitung, 'Los geht’s', start);
     return { solveNow() { laeuft = false; st.zeige('Aufgelöst 💜', ''); } };
   };
@@ -404,5 +407,88 @@
     st.hud(`Runde 0 / ${ziel}`, '🔔');
     st.zeige(cfg.titel || 'Bereit?', cfg.anleitung, 'Los geht’s', start);
     return { solveNow() { darf = false; st.zeige('Aufgelöst 💜', ''); } };
+  };
+
+  /* ---------- Heiz ein: im richtigen Moment tippen ---------- */
+  S.timing = function (root, cfg, api) {
+    const ziel = cfg.ziel || 6;
+    const st = buehne(root, 360, 'dom');
+    st.flaeche.classList.add('hz-feld');
+    const rohr = h('div', { class: 'hz-rohr' });
+    const fuellung = h('div', { class: 'hz-fuellung' });
+    const kugel = h('div', { class: 'hz-kugel' });
+    const zone = h('div', { class: 'hz-zone' });
+    const nadel = h('div', { class: 'hz-nadel' }, h('span', {}, '◀'));
+    const skala = h('div', { class: 'hz-skala' });
+    for (let i = 0; i <= 10; i++) skala.append(h('i', { style: `bottom:${i * 10}%` }));
+    rohr.append(fuellung, zone, skala);
+    const spur = h('div', { class: 'hz-spur' }, nadel);
+    const knopf = h('div', { class: 'hz-tipp' }, 'Tippen, wenn die Nadel im roten Bereich ist');
+    st.flaeche.append(h('div', { class: 'hz-thermo' }, rohr, kugel), spur, knopf);
+
+    let stufe = 0, pos = 0, richtung = 1, tempo, laeuft = false, zuletzt, zoneUnten, zoneHoehe, sperre = false;
+    function neueZone() {
+      zoneHoehe = Math.max(9, 24 - stufe * 2.6);
+      zoneUnten = 12 + Math.random() * (78 - zoneHoehe);
+      zone.style.bottom = zoneUnten + '%';
+      zone.style.height = zoneHoehe + '%';
+    }
+    function anzeigen() {
+      fuellung.style.height = Math.max(6, (stufe / ziel) * 100) + '%';
+      st.hud(`${stufe} / ${ziel}`, stufe >= ziel - 1 ? '🔥🔥🔥' : stufe >= ziel / 2 ? '🔥🔥' : '🔥');
+    }
+    function schritt(t) {
+      if (!laeuft || !st.lebt()) return;
+      const dt = Math.min(48, t - zuletzt) / 16.67;
+      zuletzt = t;
+      pos += richtung * tempo * dt;
+      if (pos >= 100) { pos = 100; richtung = -1; }
+      if (pos <= 0) { pos = 0; richtung = 1; }
+      nadel.style.bottom = pos + '%';
+      requestAnimationFrame(schritt);
+    }
+    function tippen(e) {
+      e.preventDefault();
+      if (!laeuft || sperre) return;
+      const drin = pos >= zoneUnten - 2 && pos <= zoneUnten + zoneHoehe + 2;
+      sperre = true;
+      setTimeout(() => (sperre = false), 250);
+      if (drin) {
+        stufe++;
+        st.blitz(true);
+        zone.classList.add('treffer');
+        setTimeout(() => zone.classList.remove('treffer'), 300);
+        if (stufe >= ziel) { anzeigen(); return ende(); }
+        tempo += 0.18;
+        neueZone();
+      } else {
+        st.blitz(false);
+        stufe = Math.max(0, stufe - 1);
+        api.fail();
+      }
+      anzeigen();
+    }
+    function start() {
+      stufe = 0; pos = 0; richtung = 1; tempo = 1.25; laeuft = true;
+      neueZone(); anzeigen();
+      zuletzt = performance.now();
+      requestAnimationFrame(schritt);
+    }
+    function ende() {
+      laeuft = false;
+      st.flaeche.classList.add('heiss');
+      st.zeige('Heiß, heißer, Kai! 🔥', 'Das Thermometer kocht über.');
+      setTimeout(() => api.solved(), 1000);
+    }
+    st.flaeche.addEventListener('pointerdown', tippen);
+    const taste = (e) => {
+      if (!st.lebt()) return document.removeEventListener('keydown', taste);
+      if (e.key === ' ' || e.key === 'Enter') tippen(e);
+    };
+    document.addEventListener('keydown', taste);
+    st.wrap.__zustand = () => ({ pos, zoneUnten, zoneHoehe, laeuft, stufe }); // nur für Tests
+    neueZone(); anzeigen();
+    st.zeige(cfg.titel || 'Bereit?', cfg.anleitung, 'Los geht’s', start);
+    return { solveNow() { laeuft = false; stufe = ziel; anzeigen(); st.flaeche.classList.add('heiss'); st.zeige('Aufgelöst 💜', ''); } };
   };
 })();

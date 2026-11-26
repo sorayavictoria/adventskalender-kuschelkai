@@ -48,9 +48,9 @@ Ich glaube, sie hat dich ziemlich lieb.`,
 
   7: `Mein Herz,
 
-ich bin so stolz auf dich.
-Auf alles, was du bist und was du noch wirst.
-Heute Abend darfst du einfach mal durchatmen.`,
+ich liebe dein Lachen.
+Dieses ganz ehrliche, das sofort ansteckt.
+Davon kann ich nie genug bekommen.`,
 
   8: `Mein Kai,
 
@@ -73,8 +73,9 @@ Heute Abend gehört dir. Ich freu mich auf dich.`,
 
   9: `Guten Morgen, Zucker,
 
-weißt du eigentlich, wie sehr ich dich liebe?
-Mehr als Zimtsterne. Und das will was heißen.`,
+ich liebe es, wie du mich anschaust,
+wenn du denkst, ich merke es nicht.
+Ich merke es. Und ich liebe es.`,
 
   10: `Hallo Kai,
 
@@ -83,29 +84,28 @@ Einfach zusammen sein. Mehr brauche ich nicht.`,
 
   11: `Hey Herz,
 
-ich liebe es, wenn du einfach so nach meiner Hand greifst.
+deine Umarmungen sind mein Lieblingsort.
 Bitte hör nie damit auf.`,
 
   12: `Guten Morgen, Kuschelkai,
 
 jeder Tag mit dir ist mein Lieblingstag.
-Und heute wird ein besonders süßer.`,
+Auch die ganz normalen. Gerade die.`,
 
   13: `Zucker,
 
-du bist mein Zuhause.
-Egal wo ich bin.`,
+ich bin so stolz auf dich.
+Auf alles, was du bist und was du noch wirst.`,
 
   14: `Herz,
 
-vergiss nicht, auch mal durchzuatmen.
-Ich bin immer für dich da. Immer.`,
+kleiner Reminder: Ich bin immer für dich da.
+Egal was ist. Immer.`,
 
   15: `Guten Morgen, Kai,
 
-wir zwei haben unsere ganz eigene Sprache.
-Heute habe ich dir etwas in Geheimschrift geschrieben.
-Du knackst das, da bin ich mir sicher.`,
+ich liebe deine verschlafene Stimme am Morgen.
+Die könnte ich mir den ganzen Tag anhören.`,
 
   16: `Hey Zucker,
 
@@ -114,39 +114,39 @@ Ich hab dich lieb. So richtig doll.`,
 
   17: `Mein Herz,
 
-heute Abend musst du gar nichts tun.
-Lass dich einfach verwöhnen. Du hast es dir verdient.`,
+mit dir kann ich über alles lachen.
+Sogar über mich selbst.
+Das liebe ich so an uns.`,
 
   18: `Hallo Kuschelkai,
 
-wir sind so verschieden, du und ich.
-Und genau deshalb passen wir so gut zusammen.`,
+wir zwei passen einfach perfekt zusammen.
+Das wusste ich schon ganz am Anfang.`,
 
   19: `Guten Morgen, Herz,
 
-du kümmerst dich so oft um alle anderen.
-Heute bist du mal dran.`,
+du bist das Schönste, was mir je passiert ist.
+Das wollte ich dir nur mal sagen.`,
 
   20: `Zucker,
 
-draußen ist es kalt und grau.
-Aber mit dir wird mir immer warm.
-Und heute ganz besonders.`,
+ich liebe, wie du dich um die Menschen kümmerst, die dir wichtig sind.
+Du hast so ein großes Herz.`,
 
   21: `Hey Kai,
 
 du bringst mich jeden Tag zum Lächeln.
-Heute will ich dir mal eins zurückgeben.`,
+Oft, ohne es überhaupt zu merken.`,
 
   22: `Herz,
 
-manche Dinge werden nie langweilig.
-Du zum Beispiel. Mein liebster Klassiker.`,
+ich verliebe mich immer wieder neu in dich.
+In den kleinen Momenten, die keiner sieht außer mir.`,
 
   23: `Guten Morgen, mein Kuschelkai,
 
 morgen ist Heiligabend.
-Heute gehört der Abend noch ganz uns.
+Und ich bin so dankbar, dass ich ihn mit dir feiern darf.
 Ich liebe dich so sehr.`,
 
   24: `Mein liebster Kai,
