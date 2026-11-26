@@ -69,30 +69,34 @@
   function schild() { return h('span', { class: 'heute-schild' }, 'heute ✨'); }
 
   function baueBaum() {
-    szene.innerHTML = Bilder.baum_gross();
+    const D = Bilder.DORF;
+    szene.innerHTML = Bilder.dorf();
+    const px = (x) => (x / D.W) * 100, py = (y) => (y / D.H) * 100;
+    const posD = (x, y) => `left:${px(x)}%;top:${py(y + D.DY)}%;`;
+    const FENSTER_TAGE = [17, 3, 11, 22, 9, 1, 14, 19, 5, 23, 12, 2, 20, 7, 16, 10, 4, 21, 13, 18, 15];
     let i = 0;
-    REIHEN.forEach(([y, xs]) => xs.forEach((x) => {
-      const tag = KUGEL_TAGE[i];
-      const farbe = KUGEL_FARBEN[(i * 5 + 2) % KUGEL_FARBEN.length];
-      const muster = KUGEL_MUSTER[(tag * 3) % KUGEL_MUSTER.length];
+    D.HAEUSER.forEach((hs) => hs.fenster.forEach(([x, y]) => {
+      const tag = FENSTER_TAGE[i++];
       const b = h('button', {
-        class: `platz kugel-btn ${farbe}-btn`, type: 'button', 'data-tag': tag,
-        style: pos(x, y) + `--sw:${3.4 + ((tag * 7) % 10) / 6}s;--sd:-${(tag * 0.37) % 3}s`,
+        class: `platz fenster laden-${hs.laden}`, type: 'button', 'data-tag': tag,
+        style: posD(x, y) + `width:${px(D.FW)}%;height:${py(D.FH + 20)}%`,
         onclick: () => klick(tag),
       },
-        h('span', { class: 'kugel-schwung' },
-          h('span', { class: 'faden' }),
-          h('span', { class: 'kappe' }),
-          h('span', { class: `kugel ${farbe} ${muster}` }, h('span', { class: 'num' }, tag)),
-          herz()),
+        h('span', { class: 'f-glas' },
+          h('span', { class: 'f-licht' }, h('span', { class: 'f-kerze', html: '<svg viewBox="0 0 40 40"><ellipse cx="20" cy="34" rx="12" ry="3" fill="#000" opacity=".25"/><rect x="15" y="18" width="10" height="16" rx="2" fill="#fbf4e6"/><path d="M20 6 c4 5 4 8 0 11 c-4 -3 -4 -6 0 -11z" fill="#ffcf6b"/><path d="M20 10 c2 3 2 4 0 6 c-2 -2 -2 -3 0 -6z" fill="#fff6d8"/></svg>' })),
+          h('span', { class: 'f-kreuz' }),
+          h('span', { class: 'f-laden links' }, h('i', {})),
+          h('span', { class: 'f-laden rechts' }, h('i', {}))),
+        h('span', { class: 'f-schnee' }),
+        h('span', { class: 'f-schild' }, tag),
+        h('span', { class: 'herz', 'aria-hidden': 'true', html: Bilder.motive[5] }),
         schild());
       doors[tag] = b;
       szene.append(b);
-      i++;
     }));
 
-    // Stern = Türchen 24
-    const stern = h('button', { class: 'platz stern-btn', type: 'button', 'data-tag': 24, style: pos(50, 9), onclick: () => klick(24) },
+    // Stern auf dem großen Baum = Türchen 24
+    const stern = h('button', { class: 'platz stern-btn', type: 'button', 'data-tag': 24, style: posD(200, 800) + 'width:15%', onclick: () => klick(24) },
       h('span', {
         html: '<svg class="stern-svg" viewBox="0 0 100 100"><defs><radialGradient id="sg" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#fff8d8"/><stop offset=".55" stop-color="#f6dc96"/><stop offset="1" stop-color="#c99a3b"/></radialGradient></defs><path d="M50 4 L62 36 L96 38 L69 59 L79 93 L50 73 L21 93 L31 59 L4 38 L38 36 Z" fill="url(#sg)" stroke="#fff3c4" stroke-width="2" stroke-linejoin="round"/></svg>',
       }),
@@ -100,19 +104,15 @@
     doors[24] = stern;
     szene.append(stern);
 
-    // Geschenke unter dem Baum
-    const paket = (tag, x, y, w, klasse, ar) => {
-      const b = h('button', { class: 'platz paket-btn', type: 'button', 'data-tag': tag, style: pos(x, y) + `--w:${w}%;--ar:${ar}`, onclick: () => klick(tag) },
-        h('span', { class: `paket ${klasse}` },
-          h('span', { class: 'paket-box' }),
-          h('span', { class: 'paket-deckel' }, h('span', { class: 'schleife', html: '<svg viewBox="0 0 40 20"><path d="M20 18 C12 2 0 2 3 12 C5 18 20 18 20 18Z M20 18 C28 2 40 2 37 12 C35 18 20 18 20 18Z" fill="#f6dc96" stroke="#c99a3b" stroke-width="1.2"/></svg>' }))),
-        h('span', { class: 'num' }, tag), herz(), schild());
-      doors[tag] = b;
-      szene.append(b);
-    };
-    paket(8, 73, 95.5, 21, 'p-lila', 1.1);
-    paket(15, 33, 98.5, 12.5, 'p-beere', 1);
-    const stiefel = h('button', { class: 'platz paket-btn stiefel-btn', type: 'button', 'data-tag': 6, style: pos(17, 96) + '--w:13%', onclick: () => klick(6) },
+    // Geschenk (8) und Nikolausstiefel (6) unter dem Baum
+    const paket = h('button', { class: 'platz paket-btn', type: 'button', 'data-tag': 8, style: posD(276, 1002) + '--w:19%;--ar:1.1', onclick: () => klick(8) },
+      h('span', { class: 'paket p-lila' },
+        h('span', { class: 'paket-box' }),
+        h('span', { class: 'paket-deckel' }, h('span', { class: 'schleife', html: '<svg viewBox="0 0 40 20"><path d="M20 18 C12 2 0 2 3 12 C5 18 20 18 20 18Z M20 18 C28 2 40 2 37 12 C35 18 20 18 20 18Z" fill="#f6dc96" stroke="#c99a3b" stroke-width="1.2"/></svg>' }))),
+      h('span', { class: 'num' }, 8), herz(), schild());
+    doors[8] = paket;
+    szene.append(paket);
+    const stiefel = h('button', { class: 'platz paket-btn stiefel-btn', type: 'button', 'data-tag': 6, style: posD(132, 1004) + '--w:13%', onclick: () => klick(6) },
       h('span', { class: 'stiefel', html: Bilder.stiefel }), h('span', { class: 'num' }, 6), herz(), schild());
     doors[6] = stiefel;
     szene.append(stiefel);
@@ -478,6 +478,7 @@
   /* ---------- Sterne am Himmel ---------- */
   function sterne() {
     const el = document.getElementById('himmel');
+    ['a1', 'a2', 'a3'].forEach((k) => el.append(h('div', { class: 'aurora ' + k })));
     const r = seeded(7);
     for (let i = 0; i < 70; i++) {
       el.append(h('i', { style: `left:${(r() * 100).toFixed(1)}%;top:${(r() * 100).toFixed(1)}%;--s:${(1 + r() * 2.2).toFixed(1)}px;--t:${(2 + r() * 4).toFixed(1)}s;--d:-${(r() * 5).toFixed(1)}s` }));

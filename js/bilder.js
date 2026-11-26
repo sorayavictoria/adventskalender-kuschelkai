@@ -186,3 +186,148 @@ ${gd}${lichter.join('')}
 
   window.Bilder = B;
 })();
+
+/* =====================================================================
+   DAS WINTERDORF (viewBox 400 x 1080)
+   ===================================================================== */
+(function () {
+  const B = window.Bilder;
+  const FW = 46, FH = 50; // Fenstergröße
+
+  // Häuser mit ihren Fenstern (Fenster = Türchen)
+  const HAEUSER = [
+    { x: 18, y: 140, w: 84, h: 190, dach: 62, farbe: '#e8dcc6', balken: true, laden: 'gruen', fenster: [[37, 165], [37, 247]], glocke: true },
+    { x: 120, y: 185, w: 150, h: 125, dach: 64, farbe: '#9c3b32', laden: 'creme', fenster: [[136, 205], [208, 205]], tuer: [180, 262] },
+    { x: 288, y: 160, w: 96, h: 185, dach: 58, farbe: '#5a6fa8', laden: 'creme', fenster: [[313, 180], [313, 262]] },
+    { x: 10, y: 385, w: 150, h: 125, dach: 68, farbe: '#2f5d4a', laden: 'rot', fenster: [[28, 405], [96, 405]], tuer: [70, 462] },
+    { x: 172, y: 350, w: 120, h: 172, dach: 64, farbe: '#e8dcc6', balken: true, laden: 'rot', fenster: [[186, 370], [240, 370], [213, 452]] },
+    { x: 304, y: 380, w: 86, h: 172, dach: 58, farbe: '#c99a3b', laden: 'gruen', fenster: [[324, 395], [324, 477]] },
+    { x: 6, y: 610, w: 120, h: 115, dach: 60, farbe: '#9c3b32', laden: 'creme', fenster: [[20, 630], [72, 630]], tuer: [48, 683] },
+    { x: 140, y: 580, w: 140, h: 182, dach: 72, farbe: '#5a6fa8', laden: 'creme', fenster: [[156, 600], [222, 600], [156, 682], [222, 682]] },
+    { x: 290, y: 610, w: 106, h: 115, dach: 60, farbe: '#2f5d4a', laden: 'rot', fenster: [[300, 630], [350, 630]], tuer: [334, 683] },
+  ];
+  const DY = 60; // so weit ist das Dorf nach unten gerückt
+  B.DORF = { HAEUSER, FW, FH, W: 400, H: 1140, DY };
+
+  const tanne = (x, y, s, dunkel) => {
+    const c = dunkel ? '#123628' : '#1f4a3b';
+    return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 -60 L16 -36 H8 L24 -12 H12 L30 14 H-30 L-12 -12 H-24 L-8 -36 H-16Z" fill="${c}"/><path d="M0 -60 L7 -50 L-7 -50Z M-16 -36 L-6 -36 L-10 -32Z M6 -36 L16 -36 L10 -32Z M-24 -12 L-12 -12 L-16 -8Z M12 -12 L24 -12 L18 -8Z M-30 14 L-16 14 L-22 18Z M16 14 L30 14 L22 18Z" fill="#f2f0fb"/><rect x="-3" y="14" width="6" height="8" fill="#3a2a20"/></g>`;
+  };
+
+  function haus(hs) {
+    const { x, y, w, h, dach, farbe } = hs;
+    const ax = x + w / 2;
+    let s = '';
+    // Schornstein mit Rauch
+    const kx = x + w * 0.72;
+    s += `<rect x="${kx}" y="${y - dach * 0.62}" width="14" height="${dach * 0.5}" fill="#4a3426"/><rect x="${kx - 2}" y="${y - dach * 0.66}" width="18" height="7" rx="3" fill="#f5f2fb"/>`;
+    s += `<g class="rauch" style="--rd:${(x % 7) * 0.6}s"><path d="M${kx + 7} ${y - dach * 0.7} c-8 -10 8 -16 0 -26 s8 -16 0 -26" fill="none" stroke="#e9e4f7" stroke-width="6" stroke-linecap="round" opacity=".55"/></g>`;
+    // Wand
+    s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${farbe}"/>`;
+    s += `<rect x="${x + w * 0.62}" y="${y}" width="${w * 0.38}" height="${h}" fill="#000" opacity=".12"/>`;
+    if (hs.balken) {
+      s += `<g stroke="#6b4a32" stroke-width="3" opacity=".75"><path d="M${x} ${y + 4}H${x + w}M${x + 3} ${y}V${y + h}M${x + w - 3} ${y}V${y + h}"/></g>`;
+    } else {
+      for (let yy = y + 14; yy < y + h; yy += 14) s += `<path d="M${x} ${yy}H${x + w}" stroke="#000" stroke-width="1" opacity=".08"/>`;
+    }
+    // Tür
+    if (hs.tuer) {
+      const [tx, ty] = hs.tuer;
+      s += `<path d="M${tx} ${y + h} V${ty + 10} a14 14 0 0 1 28 0 V${y + h}z" fill="#3a2a20"/><circle cx="${tx + 22}" cy="${ty + 28}" r="2" fill="#f6dc96"/>`;
+      s += `<circle cx="${tx + 14}" cy="${ty + 12}" r="7" fill="none" stroke="#2f7a58" stroke-width="3.5"/><circle cx="${tx + 14}" cy="${ty + 6}" r="2" fill="#c22f40"/>`;
+      s += `<rect x="${tx - 4}" y="${y + h - 3}" width="36" height="5" rx="2" fill="#f5f2fb"/>`;
+    }
+    // Dach mit dicker Schneedecke
+    s += `<path d="M${x - 12} ${y + 4} L${ax} ${y - dach} L${x + w + 12} ${y + 4} Z" fill="#33264f"/>`;
+    s += `<path d="M${x - 16} ${y + 6} L${ax} ${y - dach - 6} L${x + w + 16} ${y + 6} q-6 9 -14 3 q-8 8 -16 1 q-8 9 -17 1 q-9 8 -17 0 q-8 9 -17 1 q-9 8 -18 0 q-7 8 -15 1 Z" fill="#f7f5fd"/>`;
+    s += `<path d="M${ax} ${y - dach - 6} L${x + w + 16} ${y + 6}" stroke="#d9d0ef" stroke-width="3" opacity=".7"/>`;
+    if (hs.glocke) s += `<path d="M${ax - 6} ${y - dach + 22} a6 6 0 0 1 12 0 v6 h3 h-18 h3z" fill="#e0b85c"/><circle cx="${ax}" cy="${y - dach + 31}" r="1.8" fill="#e0b85c"/>`;
+    // Schnee vor dem Haus
+    s += `<path d="M${x - 10} ${y + h + 4} q${w / 4} -12 ${w / 2 + 10} -4 q${w / 4} -10 ${w / 2 + 10} 4 Z" fill="#f2f0fb"/>`;
+    return s;
+  }
+
+  function lichterkette(punkte, phase) {
+    let d = `M${punkte[0][0]} ${punkte[0][1]}`;
+    let lampen = '';
+    const farben = ['#ffe7a6', '#ff8a8a', '#a9e6c4', '#c9b6ff'];
+    for (let i = 1; i < punkte.length; i++) {
+      const [x0, y0] = punkte[i - 1], [x1, y1] = punkte[i];
+      const mx = (x0 + x1) / 2, my = Math.max(y0, y1) + 18;
+      d += ` Q${mx} ${my} ${x1} ${y1}`;
+      for (let t = 0.12; t < 1; t += 0.16) {
+        const bx = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * mx + t * t * x1;
+        const by = (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * my + t * t * y1;
+        lampen += `<circle class="lamp" cx="${bx.toFixed(1)}" cy="${(by + 2.5).toFixed(1)}" r="2.6" fill="${farben[Math.round(t * 10 + i) % farben.length]}" style="--d:${(phase + t * 2 + i).toFixed(2)}s"/>`;
+      }
+    }
+    return `<path d="${d}" fill="none" stroke="#1d1533" stroke-width="1.2"/>${lampen}`;
+  }
+
+  const laterne = (x, y) => `<g transform="translate(${x} ${y})"><ellipse cx="0" cy="-58" rx="26" ry="26" fill="url(#laternenSchein)"/><rect x="-2.5" y="-50" width="5" height="62" fill="#2a2140"/><path d="M-9 -50 h18 l-3 -14 h-12z" fill="#ffe1a0"/><path d="M-11 -64 h22 l-11 -8z" fill="#2a2140"/><rect x="-11" y="-51" width="22" height="3" fill="#2a2140"/><path d="M-12 -66 h24" stroke="#f5f2fb" stroke-width="3" stroke-linecap="round"/></g>`;
+
+  const laeufer = (x, y, schal, s) => `<g transform="translate(${x} ${y}) scale(${s})"><circle cx="0" cy="-15" r="3.2" fill="#2a2140"/><path d="M-3 -11 h6 l2 9 h-10z" fill="#2a2140"/><path d="M-2 -2 l-3 7 M2 -2 l4 6" stroke="#2a2140" stroke-width="1.8" stroke-linecap="round"/><path d="M-3 -11 h6" stroke="${schal}" stroke-width="2.4"/><path d="M3 -10 l4 3" stroke="${schal}" stroke-width="1.6"/></g>`;
+
+  B.dorf = function () {
+    let s = `<svg viewBox="0 0 400 1140" preserveAspectRatio="xMidYMin meet" aria-hidden="true" class="dorf-svg">
+<defs>
+<linearGradient id="berg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f86c4"/><stop offset="1" stop-color="#4b3f86"/></linearGradient>
+<linearGradient id="berg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6c62a8"/><stop offset="1" stop-color="#352a66"/></linearGradient>
+<linearGradient id="see" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7d8fd0"/><stop offset="1" stop-color="#2f2a66"/></linearGradient>
+<linearGradient id="hang" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcd6f2"/><stop offset=".5" stop-color="#cfc6ea"/><stop offset="1" stop-color="#b6aadb"/></linearGradient>
+<radialGradient id="laternenSchein" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd98a" stop-opacity=".7"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+<radialGradient id="baumSchein" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd98a" stop-opacity=".35"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+<linearGradient id="baumG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f7a58"/><stop offset="1" stop-color="#174a35"/></linearGradient>
+</defs>`;
+    // Berge
+    s += `<path d="M0 120 L40 62 L70 92 L118 30 L160 84 L196 52 L240 98 L286 22 L330 80 L362 50 L400 92 V140 H0Z" fill="url(#berg)"/>`;
+    s += `<path d="M118 30 L104 50 L114 48 L120 56 L128 46 L136 52 Z M286 22 L270 46 L282 42 L288 52 L296 42 L306 48 Z M40 62 L32 74 L42 72 L48 78 Z M196 52 L186 66 L196 64 L204 70 L210 64 Z M362 50 L352 64 L362 62 L370 68 Z" fill="#f5f2fb" opacity=".95"/>`;
+    s += `<path d="M0 132 L52 96 L96 120 L150 88 L210 124 L262 96 L320 126 L372 100 L400 112 V150 H0Z" fill="url(#berg2)"/>`;
+    // See mit Mondspiegelung und Schlittschuhläufern
+    s += `<rect x="0" y="138" width="400" height="40" fill="url(#see)"/>`;
+    s += `<g class="glitzer-see" fill="#fff6d8"><rect x="300" y="142" width="26" height="1.6" rx=".8" opacity=".8"/><rect x="306" y="148" width="16" height="1.4" rx=".7" opacity=".6"/><rect x="302" y="154" width="22" height="1.2" rx=".6" opacity=".5"/><rect x="309" y="160" width="10" height="1" rx=".5" opacity=".4"/></g>`;
+    s += `<path d="M20 150 h40 M90 164 h30 M180 146 h50 M240 170 h24" stroke="#dfe4ff" stroke-width="1" opacity=".35"/>`;
+    s += `<g class="laeufer">${laeufer(150, 160, '#e2525f', 1)}${laeufer(160, 160, '#b9a6ff', 1)}<path d="M152 148 q4 2 7 0" stroke="#2a2140" stroke-width="1.4" fill="none"/></g>`;
+    // Waldrand
+    let wald = '';
+    for (let i = 0; i < 24; i++) wald += tanne(i * 17 + (i % 3) * 3, 186 + (i % 2) * 6, 0.42 + (i % 4) * 0.05, true);
+    s += wald;
+    // Hang
+    s += `<path d="M0 180 Q100 168 200 182 T400 176 V1140 H0Z" fill="url(#hang)"/>`;
+    s += `<g transform="translate(0 ${DY})">`;
+    s += `<path d="M0 520 Q120 500 220 530 T400 520 V1080 H0Z" fill="#e3ddf5" opacity=".7"/>`;
+    s += `<path d="M0 760 Q140 730 240 760 T400 750 V1080 H0Z" fill="#efebfa"/>`;
+    // Fußspuren
+    let spuren = '';
+    for (let i = 0; i < 16; i++) { const t = i / 15; const x = 220 + Math.sin(t * 5) * 26 - t * 40; const y = 1060 - t * 330; spuren += `<ellipse cx="${(x + (i % 2 ? 5 : -5)).toFixed(1)}" cy="${y.toFixed(1)}" rx="2.4" ry="3.6" fill="#b6aadb" opacity=".55"/>`; }
+    s += spuren;
+    // Tannen zwischen den Häusern
+    s += tanne(112, 330, 0.75) + tanne(282, 330, 0.62) + tanne(168, 540, 0.7) + tanne(298, 556, 0.6) + tanne(132, 760, 0.62) + tanne(392, 300, 0.7) + tanne(8, 545, 0.55);
+    // Häuser, von hinten nach vorne
+    HAEUSER.forEach((hs) => (s += haus(hs)));
+    // Lichterketten
+    s += lichterkette([[18, 146], [120, 190], [270, 190], [384, 166]], 0);
+    s += lichterkette([[10, 390], [160, 390], [172, 356], [292, 356], [304, 386], [390, 386]], 1.3);
+    s += lichterkette([[6, 615], [126, 615], [140, 586], [280, 586], [290, 615], [396, 615]], 2.1);
+    // Laternen
+    s += laterne(150, 520) + laterne(292, 762) + laterne(30, 770);
+    // Großer Baum
+    s += `<ellipse cx="200" cy="900" rx="150" ry="140" fill="url(#baumSchein)"/>`;
+    s += `<ellipse cx="200" cy="1000" rx="110" ry="12" fill="#b6aadb" opacity=".6"/>`;
+    s += `<rect x="192" y="975" width="16" height="22" fill="#5b3a26"/>`;
+    const stufe = (top, unten, halb) => `<path d="M200 ${top} L${200 + halb} ${unten} q-${halb / 3} 8 -${halb / 1.5} 2 q-${halb / 3} 8 -${halb / 1.5} 0 q-${halb / 3} 8 -${halb / 1.5} -2 Z" fill="url(#baumG)"/><path d="M200 ${top} L${200 + halb} ${unten} q-${halb / 3} 8 -${halb / 1.5} 2 L200 ${unten + 4}Z" fill="#0f3a28" opacity=".35"/><path d="M${200 - halb} ${unten} q${halb / 3} 8 ${halb / 1.5} 2 q${halb / 3} 8 ${halb / 1.5} 0 q${halb / 3} 8 ${halb / 1.5} -2" fill="none" stroke="#f7f5fd" stroke-width="4" stroke-linecap="round"/>`;
+    s += stufe(810, 868, 44) + stufe(842, 920, 66) + stufe(878, 978, 90);
+    s += lichterkette([[168, 862], [232, 858]], 0.4) + lichterkette([[148, 912], [252, 906]], 1.1) + lichterkette([[126, 968], [274, 962]], 2);
+    const kugeln = [[186, 846, '#c22f40'], [214, 878, '#e0b85c'], [176, 896, '#9b82d6'], [232, 936, '#c22f40'], [160, 944, '#e0b85c'], [206, 952, '#9b82d6'], [250, 890, '#f5f2fb']];
+    kugeln.forEach(([x, y, c]) => (s += `<circle cx="${x}" cy="${y}" r="5" fill="${c}"/><circle cx="${x - 1.5}" cy="${y - 1.5}" r="1.4" fill="#fff" opacity=".7"/>`));
+    // Schneemann
+    s += `<g transform="translate(52 930)"><ellipse cx="0" cy="44" rx="30" ry="6" fill="#b6aadb" opacity=".6"/><circle cx="0" cy="22" r="24" fill="#fbfaff"/><circle cx="0" cy="-12" r="17" fill="#fbfaff"/><circle cx="-6" cy="-15" r="2" fill="#2a2140"/><circle cx="6" cy="-15" r="2" fill="#2a2140"/><path d="M0 -10 l14 3 -14 2z" fill="#f08a2c"/><path d="M-6 -4 q6 4 12 0" stroke="#2a2140" stroke-width="1.6" fill="none"/><path d="M-16 0 h32 v6 h-32z" fill="#c22f40"/><path d="M8 6 v18 h7 v-18z" fill="#c22f40"/><path d="M-12 -26 h24 v-4 h-4 v-16 h-16 v16 h-4z" fill="#2a2140"/><path d="M-8 -30 h16" stroke="#c22f40" stroke-width="3"/><circle cx="0" cy="16" r="2.2" fill="#2a2140"/><circle cx="0" cy="28" r="2.2" fill="#2a2140"/><path d="M-22 14 l-22 -16 M22 14 l20 -18" stroke="#5b3a26" stroke-width="3" stroke-linecap="round"/></g>`;
+    // Vordergrund: Schneewehen und Tannenzweige an den Ecken
+    s += `<path d="M0 1040 Q60 1016 130 1040 T260 1036 T400 1030 V1080 H0Z" fill="#f9f8fe"/>`;
+    s += tanne(-8, 1060, 1.3, true) + tanne(410, 1066, 1.4, true);
+    // Schlitten
+    s += `<g transform="translate(338 1030)"><path d="M-34 0 h60 q14 0 14 -12" fill="none" stroke="#5b3a26" stroke-width="4" stroke-linecap="round"/><rect x="-30" y="-18" width="54" height="9" rx="2" fill="#9c3b32"/><path d="M-24 -9 v9 M18 -9 v9" stroke="#5b3a26" stroke-width="4"/><path d="M-30 -18 h54" stroke="#f5f2fb" stroke-width="4" stroke-linecap="round"/></g>`;
+    s += '</g><rect x="0" y="1100" width="400" height="40" fill="#f9f8fe"/></svg>';
+    return s;
+  };
+})();

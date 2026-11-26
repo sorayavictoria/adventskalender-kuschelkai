@@ -43,10 +43,7 @@ body {
   min-height: 100vh;
   font-family: var(--sans);
   color: var(--snow);
-  background:
-    radial-gradient(120% 60% at 50% 0%, #3b2a6b 0%, transparent 60%),
-    radial-gradient(80% 50% at 85% 10%, rgba(185, 166, 224, 0.18), transparent 70%),
-    linear-gradient(180deg, var(--night-800) 0%, var(--night-900) 45%, var(--night-950) 100%);
+  background: #f9f8fe;
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
 }
@@ -93,8 +90,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* =========================================================
    Der Baum
    ========================================================= */
-main { position: relative; z-index: 4; padding: 6px 12px 0; overflow-x: clip; }
-.szene { position: relative; width: min(100%, 560px); aspect-ratio: 100 / 112; margin: 0 auto; }
+main { position: relative; z-index: 4; padding: 0; overflow-x: clip; margin-top: -4px; }
+.szene { position: relative; width: min(100%, 540px); aspect-ratio: 400 / 1140; margin: 0 auto; }
+.dorf-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+.dorf-svg .lamp { filter: drop-shadow(0 0 2.5px currentColor); animation: lampe 2.8s ease-in-out infinite; animation-delay: var(--d); }
+.dorf-svg .rauch { animation: rauch 6s ease-in-out infinite; animation-delay: var(--rd); transform-box: fill-box; transform-origin: bottom center; }
+@keyframes rauch { 0% { opacity: 0; transform: translateY(6px) scaleY(0.8); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(-18px) scaleY(1.1); } }
+.dorf-svg .laeufer { animation: gleiten 14s ease-in-out infinite alternate; }
+@keyframes gleiten { from { transform: translateX(-60px); } to { transform: translateX(80px); } }
+.dorf-svg .glitzer-see { animation: lampe 3.5s ease-in-out infinite; }
 .baum-gross { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
 .baum-gross .lamp { fill: #ffe7a6; filter: drop-shadow(0 0 1.2px #ffd36b); animation: lampe 2.8s ease-in-out infinite; animation-delay: var(--d); }
 @keyframes lampe { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
@@ -213,8 +217,8 @@ main { position: relative; z-index: 4; padding: 6px 12px 0; overflow-x: clip; }
 
 .platz.locked:active .kugel, .platz.locked:active .paket { transform: none; }
 
-.fortschritt { position: relative; z-index: 6; text-align: center; color: var(--lavender-light); margin: 6px 0 0; min-height: 1.3em; font-family: var(--hand); font-size: 1.15rem; }
-.fuss { position: relative; z-index: 6; text-align: center; font-family: var(--hand); font-size: 1rem; color: rgba(230, 221, 247, 0.6); padding: 22px 16px calc(28px + env(safe-area-inset-bottom)); }
+.fortschritt { position: relative; z-index: 6; text-align: center; color: var(--plum); background: #f9f8fe; padding-top: 4px; margin: 6px 0 0; min-height: 1.3em; font-family: var(--hand); font-size: 1.15rem; }
+.fuss { position: relative; z-index: 6; text-align: center; font-family: var(--hand); font-size: 1rem; color: #8a7fb3; background: #f9f8fe; padding: 22px 16px calc(28px + env(safe-area-inset-bottom)); }
 
 /* =========================================================
    Briefansicht
@@ -690,3 +694,101 @@ main { position: relative; z-index: 4; padding: 6px 12px 0; overflow-x: clip; }
   box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.2); transition: opacity 0.12s, transform 0.12s, box-shadow 0.12s; touch-action: manipulation;
 }
 .ar-pad.an { opacity: 1; transform: scale(1.05); box-shadow: 0 0 30px var(--farbe), inset 0 -6px 0 rgba(0, 0, 0, 0.2); }
+
+
+/* =========================================================
+   Winterdorf
+   ========================================================= */
+.welt {
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, #050920 0%, #0f1544 12%, #232463 22%, #3f357c 28%, #6a5aa8 33%, #6a5aa8 100%);
+}
+.himmel { height: 520px; }
+.aurora {
+  position: absolute; left: -30%; width: 160%; height: 150px; border-radius: 50%; mix-blend-mode: screen; pointer-events: none;
+  filter: blur(26px); opacity: 0.55; transform-origin: center;
+  animation: aurora var(--t, 14s) ease-in-out infinite alternate; animation-delay: var(--d, 0s);
+}
+.aurora.a1 { top: 40px; background: linear-gradient(90deg, transparent 5%, rgba(80, 255, 190, 0.7) 30%, rgba(90, 210, 255, 0.55) 55%, transparent 85%); --t: 13s; }
+.aurora.a2 { top: 120px; background: linear-gradient(90deg, transparent 10%, rgba(180, 120, 255, 0.6) 35%, rgba(90, 255, 200, 0.45) 65%, transparent 90%); --t: 17s; --d: -5s; }
+.aurora.a3 { top: 230px; height: 110px; background: linear-gradient(90deg, transparent 15%, rgba(255, 140, 210, 0.35) 45%, rgba(140, 160, 255, 0.4) 70%, transparent 95%); --t: 21s; --d: -9s; }
+@keyframes aurora {
+  0% { transform: translateX(-6%) skewY(-6deg) scaleY(0.8); opacity: 0.35; }
+  50% { opacity: 0.7; }
+  100% { transform: translateX(6%) skewY(5deg) scaleY(1.2); opacity: 0.45; }
+}
+.kopf h1 { filter: drop-shadow(0 2px 14px rgba(246, 220, 150, 0.35)); }
+
+/* Fenster = Türchen */
+.fenster { transform: none; perspective: 260px; container-type: inline-size; }
+.fenster:focus-visible .f-glas { outline: 3px solid var(--gold-light); outline-offset: 3px; }
+.f-glas {
+  position: absolute; left: 0; top: 0; width: 100%; height: 71.4%; border-radius: 40% 40% 5px 5px / 22% 22% 5px 5px;
+  background: linear-gradient(180deg, #1c2252, #2c2f6a); box-shadow: 0 0 0 3px #4a3426, 0 0 0 4.5px #2a1d14, 0 6px 10px -4px rgba(0, 0, 0, 0.5);
+  transform-style: preserve-3d;
+}
+.f-licht {
+  position: absolute; inset: 0; border-radius: inherit; overflow: hidden; opacity: 0; transition: opacity 0.6s;
+  background: radial-gradient(circle at 50% 70%, #fff3c4 0%, #ffcf6b 35%, #e08a2c 75%, #8a4a1a 100%);
+}
+.f-kerze { position: absolute; left: 22%; right: 22%; bottom: 4%; }
+.f-kerze svg { display: block; width: 100%; }
+.f-kreuz { position: absolute; inset: 0; pointer-events: none; }
+.f-kreuz::before, .f-kreuz::after { content: ''; position: absolute; background: #4a3426; }
+.f-kreuz::before { left: calc(50% - 1.5px); top: 0; bottom: 0; width: 3px; }
+.f-kreuz::after { top: 48%; left: 0; right: 0; height: 3px; }
+.f-laden {
+  position: absolute; top: -2px; bottom: -2px; width: calc(50% - 0.5px); backface-visibility: visible;
+  background: var(--lf); box-shadow: inset 0 0 0 1.5px rgba(0, 0, 0, 0.25);
+  transition: transform 0.9s cubic-bezier(0.35, 1.3, 0.45, 1);
+  background-image: repeating-linear-gradient(90deg, transparent 0 calc(33% - 1px), rgba(0, 0, 0, 0.18) calc(33% - 1px) 33%), linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.15));
+}
+.f-laden.links { left: 0; transform-origin: left center; border-radius: 40% 0 0 4px / 22% 0 0 4px; }
+.f-laden.rechts { right: 0; transform-origin: right center; border-radius: 0 40% 4px 0 / 0 22% 4px 0; }
+.f-laden i { /* kleines Herz im Laden */
+  position: absolute; left: 50%; top: 32%; width: 34%; aspect-ratio: 1; transform: translate(-50%, -50%) rotate(45deg);
+  background: rgba(20, 12, 40, 0.55); border-radius: 0 0 2px 0;
+}
+.f-laden i::before, .f-laden i::after { content: ''; position: absolute; width: 100%; height: 100%; border-radius: 50%; background: inherit; }
+.f-laden i::before { left: -50%; top: 0; }
+.f-laden i::after { left: 0; top: -50%; }
+.laden-rot { --lf: #b3263a; }
+.laden-gruen { --lf: #2f7a58; }
+.laden-creme { --lf: #e9dcc0; }
+.laden-creme .f-laden i { background: rgba(90, 60, 30, 0.45); }
+.f-schnee {
+  position: absolute; left: -10%; right: -10%; top: -9%; height: 12%; border-radius: 50% 50% 40% 40%;
+  background: #fbfaff; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12); z-index: 2;
+}
+.f-schnee::after { content: ''; position: absolute; left: 18%; bottom: -55%; width: 12%; height: 70%; border-radius: 0 0 50% 50%; background: #fbfaff; }
+.f-schild {
+  position: absolute; left: 50%; top: 76%; transform: translateX(-50%) rotate(-3deg); min-width: 54%; text-align: center;
+  font-family: var(--serif); font-weight: 700; font-size: 34cqi; line-height: 1.15; color: #fbf4e6;
+  background: linear-gradient(180deg, #7a5233, #5b3a26); border-radius: 4px; padding: 0 0.25em 0.05em;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+.fenster .herz { right: -14%; bottom: 20%; width: 36%; z-index: 4; }
+
+/* gelöst: Läden offen, Licht brennt */
+.fenster.solved .f-licht { opacity: 1; }
+.fenster.solved .f-laden.links { transform: rotateY(-100deg); }
+.fenster.solved .f-laden.rechts { transform: rotateY(100deg); }
+.fenster.solved .f-glas { box-shadow: 0 0 0 3px #4a3426, 0 0 0 4.5px #2a1d14, 0 0 18px 6px rgba(255, 207, 107, 0.45); }
+/* heute: Licht schimmert durch den Spalt */
+.fenster.today .f-licht { opacity: 1; }
+.fenster.today .f-glas { animation: fensterGlut 2.2s ease-in-out infinite; }
+@keyframes fensterGlut {
+  0%, 100% { box-shadow: 0 0 0 3px #4a3426, 0 0 0 4.5px #2a1d14, 0 0 14px 4px rgba(255, 214, 120, 0.55); }
+  50% { box-shadow: 0 0 0 3px #4a3426, 0 0 0 4.5px #2a1d14, 0 0 30px 12px rgba(255, 214, 120, 0.85); }
+}
+.fenster.today::after { display: none; }
+.fenster .heute-schild { top: -34%; bottom: auto; z-index: 5; }
+/* öffnen */
+.fenster.is-open { z-index: 20; }
+.fenster.is-open .f-licht { opacity: 1; }
+.fenster.is-open .f-laden.links { transform: rotateY(-115deg); }
+.fenster.is-open .f-laden.rechts { transform: rotateY(115deg); }
+.fenster:active:not(.is-open) .f-laden.links { transform: rotateY(-14deg); transition-duration: 0.2s; }
+.fenster:active:not(.is-open) .f-laden.rechts { transform: rotateY(14deg); transition-duration: 0.2s; }
+.fenster.locked:active .f-laden { transform: none !important; }
+.stern-btn { z-index: 6; }
